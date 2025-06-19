@@ -40,7 +40,7 @@ export default {
       </div>
       <div class="nav__logo">
         <router-link :to="{ name: 'home' }" class="nav__logo-link"
-          ><img src="../assets/logo.png" alt="brand logo " />
+          ><img src="../assets/logo.png" alt="Colorful shopping bag logo" />
         </router-link>
       </div>
       <ul v-show="!mobile" class="nav__links">
@@ -55,9 +55,9 @@ export default {
         </li>
       </ul>
       <div class="nav__actions">
-        <router-link :to="{ name: '' }" class="nav__action-link">
+        <!-- <router-link :to="{ name: '' }" class="nav__action-link">
           <img src="../assets/search.png" alt="search icon" />
-        </router-link>
+        </router-link> -->
         <router-link :to="{ name: '' }" class="nav__action-link">Sign in</router-link>
         <router-link :to="{ name: '' }" class="nav__action-link">
           <img src="../assets/cart.png" alt="cart icon" />

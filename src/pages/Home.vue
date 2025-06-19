@@ -1,13 +1,16 @@
-<script>
-import NavBar from '@/components/Nav-bar.vue'
+<script lang="ts">
+import FooterElement from '@/components/Footer.vue'
+import NavBar from '@/components/NavBar.vue'
 
 export default {
   components: {
     NavBar,
+    FooterElement,
   },
 }
 </script>
 
 <template>
   <NavBar />
+  <FooterElement />
 </template>
