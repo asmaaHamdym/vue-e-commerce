@@ -3,19 +3,41 @@ export default {
   name: 'NavBar',
   data() {
     return {
-      scrollPosition: null,
-      mobile: null,
-      mobileNav: null,
-      windowWidth: null,
+      scrollPosition: 0,
+      mobile: false,
+      mobileNav: false,
+      windowWidth: 0,
     }
   },
-
-  methods: {},
+  mounted() {
+    this.checkScreenWidth()
+    window.addEventListener('resize', this.checkScreenWidth)
+  },
+  methods: {
+    toggleMobileNav() {
+      this.mobileNav = !this.mobileNav
+    },
+    checkScreenWidth() {
+      this.windowWidth = window.innerWidth
+      this.mobile = this.windowWidth < 750
+      if (this.mobileNav && !this.mobile) {
+        this.mobileNav = false
+      }
+    },
+  },
 }
 </script>
 <template>
   <header :class="{ 'header header--scrolled-nav': scrollPosition }">
     <nav class="nav">
+      <div class="icon">
+        <FontAwesomeIcon
+          :icon="['fas', 'bars']"
+          @click="toggleMobileNav"
+          v-show="mobile"
+          :class="{ 'icon--active': mobileNav }"
+        />
+      </div>
       <div class="nav__logo">
         <router-link :to="{ name: 'home' }" class="nav__logo-link"
           ><img src="../assets/logo.png" alt="brand logo " />
@@ -41,14 +63,6 @@ export default {
           <img src="../assets/cart.png" alt="cart icon" />
         </router-link>
       </div>
-      <div class="icon">
-        <i
-          @click="toggleMobileNav"
-          v-show="mobile"
-          class="far fa-bars"
-          :class="{ 'icon--active': mobileNav }"
-        ></i>
-      </div>
       <transition name="mobile-nav">
         <ul v-show="mobileNav" class="nav__links-mobile">
           <li class="nav__link-item-mobile">
@@ -70,10 +84,11 @@ header {
   position: fixed;
   width: 100%;
   z-index: 1000;
-  background-color: #f2fefe;
+  background-color: #348585;
   color: #901b90;
   transition: background-color 0.5s ease all;
   nav {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -90,6 +105,18 @@ header {
     .nav__links-mobile {
       list-style: none;
       font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .nav__actions {
+      text-transform: uppercase;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 16px;
+      gap: 16px;
     }
 
     .nav__link-item {
@@ -120,5 +147,34 @@ header {
       }
     }
   }
+}
+.icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 2rem;
+  color: #901b90;
+}
+.icon--active {
+  color: #00efea;
+  transform: rotate(180deg);
+}
+.nav__links-mobile {
+  top: 0;
+  left: 0;
+  background-color: #348585;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  padding: 16px;
+  width: 100%;
+  max-width: 250px;
+  height: 100%;
+}
+.nav__link-item-mobile {
+  margin-left: 0;
+}
+.nav__link-mobile {
+  text-decoration: none;
 }
 </style>
