@@ -84,7 +84,7 @@ header {
   position: fixed;
   width: 100%;
   z-index: 1000;
-  background-color: #348585;
+  background-color: var(--bg-color);
   color: #901b90;
   transition: background-color 0.5s ease all;
   nav {
@@ -162,7 +162,7 @@ header {
 .nav__links-mobile {
   top: 0;
   left: 0;
-  background-color: #348585;
+  background-color: var(--bg-color);
   display: flex;
   flex-direction: column;
   position: fixed;
