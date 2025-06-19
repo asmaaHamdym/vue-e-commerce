@@ -1,7 +1,13 @@
 <script>
-export default {}
+import NavBar from '@/components/Nav-bar.vue'
+
+export default {
+  components: {
+    NavBar,
+  },
+}
 </script>
 
 <template>
-  <h1>Helo from home page</h1>
+  <NavBar />
 </template>
