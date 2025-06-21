@@ -53,7 +53,6 @@ export default {
   }
 
   &__input {
-    background: var(--color-bg-secondary);
     font-style: italic;
     padding: 0.5rem;
     border: none;
