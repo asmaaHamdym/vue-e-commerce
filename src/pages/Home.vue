@@ -1,5 +1,5 @@
 <script lang="ts">
-import FooterElement from '@/components/Footer.vue'
+import FooterElement from '@/components/Footer/Footer.vue'
 import NavBar from '@/components/NavBar.vue'
 
 export default {
