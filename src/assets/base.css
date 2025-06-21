@@ -2,6 +2,7 @@
   --primary-color: #901b90;
   --secondary-color: #00efea;
   --bg-color: #c0f3f3;
+  --bg-color-secondary: #545757;
   --text-color: #333;
 }
 
@@ -9,4 +10,5 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  box-shadow: none;
 }
