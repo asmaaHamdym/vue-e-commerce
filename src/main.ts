@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
+import store from './store'
 import '@/assets/base.css'
 // font awsome imports
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -14,6 +15,7 @@ library.add(faBars, faFacebook, faTwitter, faPinterest, faInstagram)
 const app = createApp(App)
 
 app.use(router)
+app.use(store)
 
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
