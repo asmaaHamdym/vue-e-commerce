@@ -2,6 +2,7 @@
 import NavbarLinks from './NavbarLinks.vue'
 import MobileNav from './MobileNav.vue'
 import CartDrawer from '../CartDrawer.vue'
+import AppLink from '../shared/AppLink.vue'
 export default {
   components: {
     NavbarLinks,
@@ -53,21 +54,21 @@ export default {
         />
       </div>
       <div class="nav__logo">
-        <router-link :to="{ name: 'home' }" class="nav__logo-link"
-          ><img src="../../assets/logo.png" alt="Colorful shopping bag logo" />
-        </router-link>
+        <AppLink :to="{ name: 'home' }" class="nav__logo-link">
+          <img src="../../assets/logo.png" alt="Colorful shopping bag logo" />
+        </AppLink>
       </div>
       <NavbarLinks v-if="!mobile" />
       <div class="nav__actions">
-        <router-link :to="{ name: '' }" class="nav__action-link">Sign in</router-link>
-        <router-link :to="{ name: '' }" class="nav__action-link">
+        <AppLink :to="{ name: '' }" class="nav__action-link">Sign in</AppLink>
+        <AppLink :to="{ name: '' }" class="nav__action-link">
           <font-awesome-icon
             icon="fa-solid fa-cart-shopping"
             size="2xl"
             class="nav__cart--trigger"
             @click="openCart"
           />
-        </router-link>
+        </AppLink>
       </div>
       <CartDrawer :is-open="isCartopen" @close="closeCart" />
     </nav>

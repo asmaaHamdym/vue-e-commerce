@@ -1,5 +1,5 @@
 <template>
-  <h1>Helo from home products</h1>
+  <h1>Helo from home contact us page</h1>
 </template>
 
 <script>
