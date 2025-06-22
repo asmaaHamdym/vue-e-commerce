@@ -1,10 +1,12 @@
 <script lang="ts">
 import NavbarLinks from './NavbarLinks.vue'
 import MobileNav from './MobileNav.vue'
+import CartDrawer from '../CartDrawer.vue'
 export default {
   components: {
     NavbarLinks,
     MobileNav,
+    CartDrawer,
   },
   name: 'NavBar',
   data() {
@@ -12,6 +14,7 @@ export default {
       mobile: false,
       mobileNav: false,
       windowWidth: 0,
+      isCartopen: false,
     }
   },
   mounted() {
@@ -28,6 +31,12 @@ export default {
       if (this.mobileNav && !this.mobile) {
         this.mobileNav = false
       }
+    },
+    openCart() {
+      this.isCartopen = true
+    },
+    closeCart() {
+      this.isCartopen = false
     },
   },
 }
@@ -52,9 +61,15 @@ export default {
       <div class="nav__actions">
         <router-link :to="{ name: '' }" class="nav__action-link">Sign in</router-link>
         <router-link :to="{ name: '' }" class="nav__action-link">
-          <font-awesome-icon icon="fa-solid fa-cart-shopping" size="2xl" />
+          <font-awesome-icon
+            icon="fa-solid fa-cart-shopping"
+            size="2xl"
+            class="nav__cart--trigger"
+            @click="openCart"
+          />
         </router-link>
       </div>
+      <CartDrawer :is-open="isCartopen" @close="closeCart" />
     </nav>
     <MobileNav v-if="mobile" :mobileNav="mobileNav" />
   </header>
@@ -98,6 +113,12 @@ export default {
     &__icon--active {
       color: #00efea;
       transform: rotate(180deg);
+    }
+    &__cart--trigger {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
     }
 
     .nav__action-link {

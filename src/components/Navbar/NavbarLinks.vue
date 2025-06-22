@@ -33,6 +33,10 @@ export default {
     text-transform: uppercase;
     padding: 16px;
     margin: 16px;
+    &:hover {
+      color: #00efea;
+      border-color: #00efea;
+    }
   }
 }
 </style>
