@@ -1,7 +1,6 @@
 <script lang="ts">
 import FooterInfo from './FooterInfo.vue'
 import FooterNavigation from './FooterNavigation.vue'
-import FooterSocials from './FooterSocials.vue'
 import FooterNewsletter from './FooterNewsletter.vue'
 
 export default {
@@ -15,7 +14,6 @@ export default {
     FooterNewsletter,
     FooterNavigation,
     FooterInfo,
-    FooterSocials,
   },
 }
 </script>

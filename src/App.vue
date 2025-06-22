@@ -1,4 +1,12 @@
-<script lang="ts"></script>
+<script lang="ts">
+export default {
+  name: 'App',
+  components: {},
+  data() {
+    return {}
+  },
+}
+</script>
 
 <template>
   <RouterView />

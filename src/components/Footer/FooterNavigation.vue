@@ -3,7 +3,9 @@ export default {
   name: 'FooterLinkGroup',
 
   data() {
-    return {}
+    return {
+      currentYear: new Date().getFullYear(),
+    }
   },
 }
 </script>
@@ -40,6 +42,7 @@ export default {
         </ul>
       </div>
     </div>
+    <p class="footer-navigation__copyright">Copyright © All Rights Reserved {{ currentYear }}</p>
   </div>
 </template>
 
@@ -73,6 +76,11 @@ export default {
     &:hover {
       color: #333;
     }
+  }
+  &__copyright {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 1rem;
   }
 }
 </style>
