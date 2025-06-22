@@ -1,10 +1,6 @@
 import { createStore } from 'vuex'
 
-interface State {
-  count: number
-}
-
-export default createStore<State>({
+export default createStore({
   state: {},
   mutations: {},
   actions: {},

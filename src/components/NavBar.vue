@@ -79,7 +79,7 @@ export default {
     </nav>
   </header>
 </template>
-<style>
+<style lang="scss" scoped>
 header {
   position: fixed;
   width: 100%;
