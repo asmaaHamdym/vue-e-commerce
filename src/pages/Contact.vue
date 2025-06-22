@@ -1,7 +1,9 @@
-<script lang="ts">
+<template>
+  <h1>Helo from home products</h1>
+</template>
+
+<script>
 export default {}
 </script>
 
-<template>
-  <h1>Helo from home contact</h1>
-</template>
+<style></style>

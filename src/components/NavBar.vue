@@ -1,9 +1,12 @@
 <script lang="ts">
+import NavbarLinks from './Navbar/NavbarLinks.vue'
 export default {
+  components: {
+    NavbarLinks,
+  },
   name: 'NavBar',
   data() {
     return {
-      scrollPosition: 0,
       mobile: false,
       mobileNav: false,
       windowWidth: 0,
@@ -14,7 +17,7 @@ export default {
     window.addEventListener('resize', this.checkScreenWidth)
   },
   methods: {
-    toggleMobileNav() {
+    toggleMobileNav(): void {
       this.mobileNav = !this.mobileNav
     },
     checkScreenWidth() {
@@ -28,14 +31,14 @@ export default {
 }
 </script>
 <template>
-  <header :class="{ 'header header--scrolled-nav': scrollPosition }">
-    <nav class="nav">
-      <div class="icon">
+  <header class="header">
+    <nav class="header__nav">
+      <div class="header__icon">
         <FontAwesomeIcon
           :icon="['fas', 'bars']"
           @click="toggleMobileNav"
           v-show="mobile"
-          :class="{ 'icon--active': mobileNav }"
+          :class="{ 'header__icon--active': mobileNav }"
         />
       </div>
       <div class="nav__logo">
@@ -43,21 +46,8 @@ export default {
           ><img src="../assets/logo.png" alt="Colorful shopping bag logo" />
         </router-link>
       </div>
-      <ul v-show="!mobile" class="nav__links">
-        <li class="nav__link-item">
-          <router-link :to="{ name: 'home' }" class="nav__link">Home</router-link>
-        </li>
-        <li class="nav__link-item">
-          <router-link :to="{ name: 'products' }" class="nav__link">Products</router-link>
-        </li>
-        <li class="nav__link-item">
-          <router-link :to="{ name: 'contact' }" class="nav__link">Contact us</router-link>
-        </li>
-      </ul>
+      <NavbarLinks v-if="!mobile" />
       <div class="nav__actions">
-        <!-- <router-link :to="{ name: '' }" class="nav__action-link">
-          <img src="../assets/search.png" alt="search icon" />
-        </router-link> -->
         <router-link :to="{ name: '' }" class="nav__action-link">Sign in</router-link>
         <router-link :to="{ name: '' }" class="nav__action-link">
           <img src="../assets/cart.png" alt="cart icon" />
@@ -80,14 +70,14 @@ export default {
   </header>
 </template>
 <style lang="scss" scoped>
-header {
+.header {
   position: fixed;
   width: 100%;
   z-index: 1000;
   background-color: var(--bg-color);
   color: #901b90;
   transition: background-color 0.5s ease all;
-  nav {
+  &__nav {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -101,7 +91,6 @@ header {
       max-width: 1140px;
     }
 
-    .nav__links,
     .nav__links-mobile {
       list-style: none;
       font-weight: 500;
@@ -119,11 +108,6 @@ header {
       gap: 16px;
     }
 
-    .nav__link-item {
-      text-transform: uppercase;
-      padding: 16px;
-      margin: 16px;
-    }
     .nav__link,
     .nav__action-link {
       text-decoration: none;
