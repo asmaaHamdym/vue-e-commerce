@@ -1,7 +1,9 @@
+<template>
+  <h1>Hello from products</h1>
+</template>
+
 <script>
 export default {}
 </script>
 
-<template>
-  <h1>Helo from home Products</h1>
-</template>
+<style></style>
