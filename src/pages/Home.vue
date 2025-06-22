@@ -11,6 +11,8 @@ export default {
 </script>
 
 <template>
-  <!-- <NavBar /> -->
-  <FooterElement />
+  <div>
+    <NavBar />
+    <FooterElement />
+  </div>
 </template>

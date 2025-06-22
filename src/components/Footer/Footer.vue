@@ -1,17 +1,9 @@
 <script lang="ts">
-import FooterCopyright from './FooterCopyright.vue'
+import FooterInfo from './FooterInfo.vue'
 import FooterNavigation from './FooterNavigation.vue'
 import FooterSocials from './FooterSocials.vue'
 import FooterNewsletter from './FooterNewsletter.vue'
 
-export interface FooterLink {
-  text: string
-  url: string
-}
-interface LinkGroup {
-  header: string
-  links: FooterLink[]
-}
 export default {
   name: 'FooterElement',
   data() {
@@ -22,7 +14,7 @@ export default {
   components: {
     FooterNewsletter,
     FooterNavigation,
-    FooterCopyright,
+    FooterInfo,
     FooterSocials,
   },
 }
@@ -31,19 +23,28 @@ export default {
   <footer class="footer">
     <div class="footer__container">
       <FooterNewsletter />
-      <FooterNavigation />
+      <div class="footer__navigation-info">
+        <FooterNavigation />
+        <FooterInfo />
+      </div>
       <FooterSocials />
-      <FooterCopyright :year="currentYear" />
     </div>
   </footer>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .footer {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
+  &__navigation-info {
+    background: var(--bg-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 2rem;
+  }
 }
 </style>

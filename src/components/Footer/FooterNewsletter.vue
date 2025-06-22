@@ -77,17 +77,18 @@ export default {
     }
   }
 }
-// media query to adjust layout for smaller screens
 @media (max-width: 768px) {
   .newsletter {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    margin: 0 0.7rem;
   }
 
   .newsletter__form {
     width: 100%;
     max-width: 300px;
+    margin-bottom: 0.5rem;
   }
 
   .newsletter__input {

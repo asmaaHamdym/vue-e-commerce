@@ -45,8 +45,6 @@ export default {
 
 <style scoped lang="scss">
 .footer-navigation {
-  padding: 2rem;
-  background: var(--bg-color);
   &__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
