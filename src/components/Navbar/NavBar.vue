@@ -1,8 +1,10 @@
 <script lang="ts">
-import NavbarLinks from './Navbar/NavbarLinks.vue'
+import NavbarLinks from './NavbarLinks.vue'
+import MobileNav from './MobileNav.vue'
 export default {
   components: {
     NavbarLinks,
+    MobileNav,
   },
   name: 'NavBar',
   data() {
@@ -17,7 +19,7 @@ export default {
     window.addEventListener('resize', this.checkScreenWidth)
   },
   methods: {
-    toggleMobileNav(): void {
+    toggleMobileNav() {
       this.mobileNav = !this.mobileNav
     },
     checkScreenWidth() {
@@ -32,52 +34,39 @@ export default {
 </script>
 <template>
   <header class="header">
-    <nav class="header__nav">
-      <div class="header__icon">
+    <nav class="nav">
+      <div class="nav__icon">
         <FontAwesomeIcon
           :icon="['fas', 'bars']"
           @click="toggleMobileNav"
           v-show="mobile"
-          :class="{ 'header__icon--active': mobileNav }"
+          :class="{ 'nav__icon--active': mobileNav }"
         />
       </div>
       <div class="nav__logo">
         <router-link :to="{ name: 'home' }" class="nav__logo-link"
-          ><img src="../assets/logo.png" alt="Colorful shopping bag logo" />
+          ><img src="../../assets/logo.png" alt="Colorful shopping bag logo" />
         </router-link>
       </div>
       <NavbarLinks v-if="!mobile" />
       <div class="nav__actions">
         <router-link :to="{ name: '' }" class="nav__action-link">Sign in</router-link>
         <router-link :to="{ name: '' }" class="nav__action-link">
-          <img src="../assets/cart.png" alt="cart icon" />
+          <font-awesome-icon icon="fa-solid fa-cart-shopping" size="2xl" />
         </router-link>
       </div>
-      <transition name="mobile-nav">
-        <ul v-show="mobileNav" class="nav__links-mobile">
-          <li class="nav__link-item-mobile">
-            <router-link :to="{ name: 'home' }" class="nav__link-mobile">Home</router-link>
-          </li>
-          <li class="nav__link-item-mobile">
-            <router-link :to="{ name: 'products' }" class="nav__link-mobile">Products</router-link>
-          </li>
-          <li class="nav__link-item-mobile">
-            <router-link :to="{ name: 'contact' }" class="nav__link-mobile">Contact us</router-link>
-          </li>
-        </ul>
-      </transition>
     </nav>
+    <MobileNav v-if="mobile" :mobileNav="mobileNav" />
   </header>
 </template>
 <style lang="scss" scoped>
 .header {
   position: fixed;
   width: 100%;
-  z-index: 1000;
   background-color: var(--bg-color);
   color: #901b90;
   transition: background-color 0.5s ease all;
-  &__nav {
+  .nav {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -90,25 +79,27 @@ export default {
     @media (min-width: 1140px) {
       max-width: 1140px;
     }
-
-    .nav__links-mobile {
-      list-style: none;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .nav__actions {
+    &__actions {
       text-transform: uppercase;
-
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 16px;
       gap: 16px;
     }
+    &__icon {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-size: 2rem;
+      color: #901b90;
+      z-index: 1000;
+    }
+    &__icon--active {
+      color: #00efea;
+      transform: rotate(180deg);
+    }
 
-    .nav__link,
     .nav__action-link {
       text-decoration: none;
       font-size: 14px;
@@ -131,34 +122,5 @@ export default {
       }
     }
   }
-}
-.icon {
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 2rem;
-  color: #901b90;
-}
-.icon--active {
-  color: #00efea;
-  transform: rotate(180deg);
-}
-.nav__links-mobile {
-  top: 0;
-  left: 0;
-  background-color: var(--bg-color);
-  display: flex;
-  flex-direction: column;
-  position: fixed;
-  padding: 16px;
-  width: 100%;
-  max-width: 250px;
-  height: 100%;
-}
-.nav__link-item-mobile {
-  margin-left: 0;
-}
-.nav__link-mobile {
-  text-decoration: none;
 }
 </style>

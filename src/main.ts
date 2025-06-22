@@ -7,10 +7,10 @@ import '@/assets/base.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 
 import { faFacebook, faTwitter, faPinterest, faInstagram } from '@fortawesome/free-brands-svg-icons'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faBars, faFacebook, faTwitter, faPinterest, faInstagram)
+library.add(faBars, faFacebook, faTwitter, faPinterest, faInstagram, faCartShopping)
 
 const app = createApp(App)
 
