@@ -1,18 +1,18 @@
-import { type ProductState, type Product } from '@/types/products.ts'
-
-const state: ProductState = {
+import { type Module } from 'vuex'
+import { type ProductsState, type Product } from '@/types/products'
+const state: ProductsState = {
   items: [],
   loading: false,
   error: null,
 }
 const mutations = {
-  setProducts(state: ProductState, products: Product[]) {
+  setProducts(state: ProductsState, products: Product[]) {
     state.items = products
   },
-  setLoading(state: ProductState, loading: boolean) {
+  setLoading(state: ProductsState, loading: boolean) {
     state.loading = loading
   },
-  setError(state: ProductState, error: string | null) {
+  setError(state: ProductsState, error: string | null) {
     state.error = error
   },
 }
@@ -21,7 +21,7 @@ const actions = {
     commit('setLoading', true)
     commit('setError', null)
     try {
-      const response = await fetch('https://api.escuelajs.co/api/v1/products')
+      const response = await fetch('https://fakestoreapi.com/products')
       if (!response.ok) {
         throw new Error('Failed to fetch products')
       }
@@ -36,14 +36,16 @@ const actions = {
 }
 
 const getters = {
-  products: (state: ProductState) => state.items,
-  loading: (state: ProductState) => state.loading,
-  error: (state: ProductState) => state.error,
+  products: (state: ProductsState) => state.items,
+  loading: (state: ProductsState) => state.loading,
+  error: (state: ProductsState) => state.error,
 }
 
-export default {
+const productsModule: Module<ProductsState, any> = {
+  namespaced: true,
   state,
   mutations,
   actions,
   getters,
 }
+export default productsModule
