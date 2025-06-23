@@ -1,24 +1,4 @@
-// import Product, { ProductState } from '@/types/products.ts'
-// import { Module } from 'vuex'
-interface Product {
-  id: number
-  title: string
-  slug: string
-  price: number
-  description: string
-  category: {
-    id: number
-    name: string
-    image: string
-    slug: string
-  }
-  images: string[]
-}
-interface ProductsState {
-  items: Product[]
-  loading: boolean
-  error: string | null
-}
+import { type ProductState, type Product } from '@/types/products.ts'
 
 const state: ProductState = {
   items: [],

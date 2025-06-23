@@ -1,16 +1,14 @@
-export default interface Product {
+export interface Product {
   id: number
   title: string
-  slug: string
   price: number
   description: string
-  category: {
-    id: number
-    name: string
-    image: string
-    slug: string
+  category: string
+  images: string
+  rating: {
+    rate: number
+    count: number
   }
-  images: string[]
 }
 
 export interface ProductsState {
