@@ -1,6 +1,6 @@
 <script lang="ts">
 import NavbarLinks from './NavbarLinks.vue'
-import MobileNav from './MobileNav.vue'
+import MobileNav from './NavMobile.vue'
 import CartDrawer from '../CartDrawer.vue'
 import AppLink from '../shared/AppLink.vue'
 
@@ -83,7 +83,7 @@ export default {
     position: relative;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     transition: all 0.5s ease;
     width: 90%;
@@ -95,9 +95,9 @@ export default {
       text-transform: uppercase;
       display: flex;
       align-items: center;
-      justify-content: center;
       margin: 16px;
       gap: 16px;
+      text-wrap: nowrap;
     }
     &__icon {
       display: flex;
@@ -115,19 +115,15 @@ export default {
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0;
     }
 
     .nav__action-link {
       text-decoration: none;
       font-size: 14px;
       transition: 0.5 ease all;
-      padding-bottom: 4px;
-      border-bottom: 1px solid transparent;
 
       &:hover {
         color: #00efea;
-        border-color: #00efea;
       }
     }
     .nav__logo {

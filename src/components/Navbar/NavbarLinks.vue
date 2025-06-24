@@ -20,7 +20,6 @@ export default {
 
 <style lang="scss" scoped>
 .nav {
-  display: flex;
   &__link {
     list-style: none;
     font-weight: 500;
