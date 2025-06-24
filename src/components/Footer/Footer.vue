@@ -32,11 +32,6 @@ export default {
 
 <style scoped lang="scss">
 .footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
   &__navigation-info {
     background: var(--bg-color);
     display: flex;

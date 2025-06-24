@@ -67,6 +67,9 @@ export default {
   }
 
   &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     border: 1px solid #eee;
     border-radius: 8px;
     padding: 1rem;
@@ -84,9 +87,11 @@ export default {
   }
 
   &__image {
-    max-width: 100%;
-    height: auto;
+    width: 100%;
+    max-width: 300px;
+    height: 300px;
     border-radius: 4px;
+    object-fit: contain;
   }
 
   &__price {
@@ -96,6 +101,25 @@ export default {
 
   &__description {
     color: #666;
+    // Limit to 3 lines
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  &__add-to-cart {
+    margin: 1rem auto;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: (var(--secondary-color));
+    }
   }
 }
 </style>

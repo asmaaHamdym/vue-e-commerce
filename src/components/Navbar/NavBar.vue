@@ -3,19 +3,21 @@ import NavbarLinks from './NavbarLinks.vue'
 import MobileNav from './MobileNav.vue'
 import CartDrawer from '../CartDrawer.vue'
 import AppLink from '../shared/AppLink.vue'
+
 export default {
+  name: 'NavBar',
   components: {
     NavbarLinks,
     MobileNav,
     CartDrawer,
+    AppLink,
   },
-  name: 'NavBar',
   data() {
     return {
-      mobile: false,
-      mobileNav: false,
-      windowWidth: 0,
-      isCartopen: false,
+      mobile: false as boolean,
+      mobileNav: false as boolean,
+      windowWidth: 0 as number,
+      isCartopen: false as boolean,
     }
   },
   mounted() {
@@ -77,18 +79,12 @@ export default {
 </template>
 <style lang="scss" scoped>
 .header {
-  position: fixed;
-  width: 100%;
-  background-color: var(--bg-color);
-  color: #901b90;
-  transition: background-color 0.5s ease all;
   .nav {
     position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
     transition: all 0.5s ease;
     width: 90%;
     margin: 0 auto;
