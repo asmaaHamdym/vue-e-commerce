@@ -82,8 +82,12 @@ export default {
   }
 
   &__title {
-    margin-top: 0;
+    margin: 0.7rem 0;
     color: var(--primary-color);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
   }
 
   &__image {
