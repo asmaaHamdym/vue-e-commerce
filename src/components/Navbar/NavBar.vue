@@ -1,10 +1,18 @@
 <script lang="ts">
+import { defineComponent } from 'vue'
 import NavbarLinks from './NavbarLinks.vue'
 import MobileNav from './NavMobile.vue'
 import CartDrawer from '../CartDrawer.vue'
 import AppLink from '../shared/AppLink.vue'
 
-export default {
+interface NavBarData {
+  mobile: boolean
+  mobileNav: boolean
+  windowWidth: number
+  isCartopen: boolean
+}
+
+export default defineComponent<{}, {}, NavBarData>({
   name: 'NavBar',
   components: {
     NavbarLinks,
@@ -42,7 +50,7 @@ export default {
       this.isCartopen = false
     },
   },
-}
+})
 </script>
 <template>
   <header class="header">
