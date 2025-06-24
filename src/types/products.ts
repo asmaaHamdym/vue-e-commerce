@@ -13,6 +13,7 @@ export interface Product {
 
 export interface ProductsState {
   items: Product[]
+  currentProduct: Product | null
   loading: boolean
   error: string | null
 }

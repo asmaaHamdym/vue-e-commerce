@@ -1,5 +1,5 @@
 <template>
-  <li class="products__item">
+  <li class="products__item" :key="product.id">
     <h3 class="products__title">{{ product.title }}</h3>
     <img v-if="product.image" :src="product.image" :alt="product.title" class="products__image" />
     <p class="products__price">${{ product.price }}</p>

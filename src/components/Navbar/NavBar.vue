@@ -112,12 +112,12 @@ export default defineComponent<{}, {}, NavBarData>({
       align-items: center;
       cursor: pointer;
       font-size: 2rem;
-      color: #901b90;
+      color: var(--primary-color);
       z-index: 1000;
       transition: all 0.3s ease;
     }
     &__icon--active {
-      color: #00efea;
+      color: var(--secondary-color);
       transform: rotate(180deg);
     }
     &__cart--trigger {
@@ -132,7 +132,7 @@ export default defineComponent<{}, {}, NavBarData>({
       transition: 0.5 ease all;
 
       &:hover {
-        color: #00efea;
+        color: var(--secondary-color);
       }
     }
     .nav__logo {

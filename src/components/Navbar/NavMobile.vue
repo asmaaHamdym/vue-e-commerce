@@ -42,6 +42,7 @@ export default {
   &__link {
     font-weight: 600;
     padding: 0.2rem;
+    border-bottom: 1px solid var(--secondary-color);
   }
   &__link-item {
     text-decoration: none;
