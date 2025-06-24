@@ -34,18 +34,18 @@ export default {
 .mobile-nav-ul {
   list-style: none;
   width: 100%;
-  max-width: 250px;
-  height: 100vh;
-  background: white;
-  position: fixed;
-  top: 100px;
-  left: 0;
+  height: auto;
+  max-height: 80spx;
+  background: var(--bg-color);
+  text-align: center;
   transition: transform 0.5s all ease;
+  &__link {
+    font-weight: 600;
+    padding: 0.2rem;
+  }
   &__link-item {
     text-decoration: none;
     text-transform: uppercase;
-    padding: 16px;
-    margin: 16px;
   }
 }
 </style>

@@ -106,6 +106,7 @@ export default {
       font-size: 2rem;
       color: #901b90;
       z-index: 1000;
+      transition: all 0.3s ease;
     }
     &__icon--active {
       color: #00efea;
