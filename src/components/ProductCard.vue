@@ -94,6 +94,9 @@ export default {
     &:hover {
       background-color: (var(--secondary-color));
     }
+    &:active {
+      transform: scale(0.98);
+    }
   }
 }
 </style>
