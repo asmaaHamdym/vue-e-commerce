@@ -28,7 +28,6 @@ export default {
     <div v-if="isLoading" class="product--loading">Loading...</div>
     <div v-if="error" class="product--error">Error: {{ error }}</div>
     <div v-if="!isLoading && !error" class="product__container">
-      {{ console.log(product) }}
       <img :src="product.image" :alt="product.image" class="product__image" />
       <div class="product__details">
         <p class="product__description">{{ product.description }}</p>
