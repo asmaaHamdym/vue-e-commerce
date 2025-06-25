@@ -24,7 +24,11 @@ export interface ToggleMobileMenu {
   isCartOpen: boolean
 }
 // add interface for cart
-export interface CartState {
+export interface CartItem {
   product: Product
   quantity: number
+}
+export interface CartState {
+  products: CartItem[]
+  total: number
 }

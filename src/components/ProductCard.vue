@@ -8,7 +8,7 @@
     <img v-if="product.image" :src="product.image" :alt="product.title" class="products__image" />
     <p class="products__price">${{ product.price }}</p>
     <p class="products__description">{{ product.description }}</p>
-    <button @click="addToCart(product)" class="products__add-to-cart">Add to Cart</button>
+    <button @click.stop="addToCart(product)" class="products__add-to-cart">Add to Cart</button>
   </li>
 </template>
 
@@ -27,6 +27,7 @@ export default {
   methods: {
     addToCart(product: Product) {
       this.$store.dispatch('cart/addToCart', product)
+      this.$emit('product-added', product)
     },
   },
   mounted() {},

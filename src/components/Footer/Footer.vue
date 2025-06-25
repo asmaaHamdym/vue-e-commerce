@@ -25,7 +25,6 @@ export default {
         <FooterNavigation />
         <FooterInfo />
       </div>
-      <FooterSocials />
     </div>
   </footer>
 </template>

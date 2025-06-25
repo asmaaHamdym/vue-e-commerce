@@ -1,39 +1,56 @@
 // add store module for cart usinf vuex
 import { type Module } from 'vuex'
-import { type CartState, type Product } from '@/types/products'
+import { type CartItem, type CartState, type Product } from '@/types/products'
 
 const state: CartState = {
-  product: {} as Product,
-  quantity: 0,
+  products: [],
+  total: 0,
 }
-
 const mutations = {
+  // setCartItems(state: CartState, items: CartItem[]) {
+  //   state.products = items
+  //   state.total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+  // },
   addToCart(state: CartState, product: Product) {
-    state.product = product
-    state.quantity += 1
+    const existingItem = state.products.find((item) => item.product.id === product.id)
+    if (existingItem) {
+      existingItem.quantity += 1
+    } else {
+      state.products.push({ product, quantity: 1 })
+    }
+    state.total += product.price
   },
-  removeFromCart(state: CartState) {
-    state.quantity = 0
-    state.product = {} as Product
+  removeFromCart(state: CartState, productId: number) {
+    const index = state.products.findIndex((item) => item.product.id === productId)
+    if (index !== -1) {
+      state.total -= state.products[index].product.price * state.products[index].quantity
+      state.products.splice(index, 1)
+    }
   },
-  updateQuantity(state: CartState, quantity: number) {
-    state.quantity = quantity
+  clearCart(state: CartState) {
+    state.products = []
+    state.total = 0
   },
 }
 const actions = {
-  addProductToCart({ commit }, product: Product) {
+  // getCartItems({ commit }, items: CartItem[]) {
+  //   commit('setCartItems', items)
+  // },
+  addToCart({ commit }, product: Product) {
     commit('addToCart', product)
   },
-  removeProductFromCart({ commit }) {
-    commit('removeFromCart')
+  removeFromCart({ commit }, productId: number) {
+    commit('removeFromCart', productId)
   },
-  updateCartQuantity({ commit }, quantity: number) {
-    commit('updateQuantity', quantity)
+  clearCart({ commit }) {
+    commit('clearCart')
   },
 }
 const getters = {
-  cartProduct: (state: CartState) => state.product,
-  cartQuantity: (state: CartState) => state.quantity,
+  cartItems: (state: CartState) => state.products,
+  cartTotal: (state: CartState) => state.total,
+  cartItemCount: (state: CartState) =>
+    state.products.reduce((count, item) => count + item.quantity, 0),
 }
 const cartModule: Module<CartState, any> = {
   namespaced: true,

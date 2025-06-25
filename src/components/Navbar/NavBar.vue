@@ -1,7 +1,7 @@
 <script lang="ts">
 import NavbarLinks from './NavbarLinks.vue'
 import HamburgerMenu from './HamburgerMenu.vue'
-import CartDrawer from '../CartDrawer.vue'
+import CartDrawer from '../CartSidebar.vue'
 import AppLink from '../shared/AppLink.vue'
 import { type ToggleMobileMenu } from '@/types/ToggleMobileMenu'
 

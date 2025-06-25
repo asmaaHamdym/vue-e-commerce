@@ -9,15 +9,41 @@
           &times;
         </button>
       </div>
-
       <div class="cart-sidebar__body">
-        <p v-if="!cartItems.length">Your cart is empty</p>
+        <div v-if="!cartItems.length" class="cart-sidebar__empty">
+          <p>Your cart is empty</p>
+        </div>
+
+        <div v-else>
+          <div v-for="item in cartItems" :key="item.product.id" class="cart-item">
+            <img
+              v-if="item.product.image"
+              :src="item.product.image"
+              :alt="item.product.title"
+              class="cart-item__image"
+            />
+            <div class="cart-item__details">
+              <h3 class="cart-item__title">{{ item.product.title }}</h3>
+              <p class="cart-item__price">${{ item.product.price }} x {{ item.quantity }}</p>
+              <p class="cart-item__total">${{ (item.product.price * item.quantity).toFixed(2) }}</p>
+            </div>
+            <button @click="removeFromCart(item.product.id)" class="cart-item__remove">
+              &times;
+            </button>
+          </div>
+
+          <div class="cart-sidebar__summary">
+            <p class="cart-sidebar__total">Total: ${{ totalPrice.toFixed(2) }}</p>
+            <button @click="clearCart" class="cart-sidebar__clear">Clear Cart</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'CartSidebar',
   props: {
@@ -26,16 +52,13 @@ export default {
       required: true,
     },
   },
-  data() {
-    return {
-      cartItems: [],
-    }
-  },
+
   emits: ['close'],
   methods: {
     closeCart(): void {
       this.$emit('close')
     },
+    ...mapActions('cart', ['removeFromCart', 'clearCart']),
   },
   watch: {
     isOpen(newVal: boolean) {
@@ -45,6 +68,12 @@ export default {
         document.body.style.overflow = ''
       }
     },
+  },
+  computed: {
+    ...mapState('cart', {
+      cartItems: (state) => state.products,
+      totalPrice: (state) => state.total,
+    }),
   },
 }
 </script>
