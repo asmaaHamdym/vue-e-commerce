@@ -1,6 +1,6 @@
 <script lang="ts">
 import { mapState, mapActions } from 'vuex'
-import { type Product } from '@/types/products'
+import { type Product } from '@/types/types'
 export default {
   name: 'ProductPage',
   computed: {

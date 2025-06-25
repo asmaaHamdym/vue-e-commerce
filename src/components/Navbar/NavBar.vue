@@ -3,7 +3,7 @@ import NavbarLinks from './NavbarLinks.vue'
 import HamburgerMenu from './HamburgerMenu.vue'
 import CartDrawer from '../CartSidebar.vue'
 import AppLink from '../shared/AppLink.vue'
-import { type ToggleMobileMenu } from '@/types/ToggleMobileMenu'
+import { type ToggleMobileMenu } from '@/types/types'
 
 export default {
   name: 'NavBar',
@@ -18,7 +18,7 @@ export default {
       mobile: false,
       mobileNav: false,
       windowWidth: 0,
-      isCartopen: false,
+      isCartOpen: false,
     }
   },
   mounted() {
@@ -37,10 +37,10 @@ export default {
       }
     },
     openCart() {
-      this.isCartopen = true
+      this.isCartOpen = true
     },
     closeCart() {
-      this.isCartopen = false
+      this.isCartOpen = false
     },
   },
 }
@@ -73,7 +73,7 @@ export default {
           />
         </AppLink>
       </div>
-      <CartDrawer :is-open="isCartopen" @close="closeCart" />
+      <CartDrawer :is-open="isCartOpen" @close="closeCart" />
     </nav>
     <HamburgerMenu v-if="mobile" :mobileNav="mobileNav" />
   </header>

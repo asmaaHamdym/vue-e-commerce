@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { type Product } from '../types/products'
+import { type Product } from '../types/types'
 export default {
   name: 'ProductCard',
 

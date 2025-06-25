@@ -1,5 +1,5 @@
 import { type Module } from 'vuex'
-import { type ProductsState, type Product } from '@/types/products'
+import { type ProductsState, type Product } from '@/types/types'
 const state: ProductsState = {
   items: [],
   currentProduct: null,

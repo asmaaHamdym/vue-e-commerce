@@ -1,16 +1,12 @@
 // add store module for cart usinf vuex
 import { type Module } from 'vuex'
-import { type CartItem, type CartState, type Product } from '@/types/products'
+import { type CartItem, type CartState, type Product } from '@/types/types'
 
 const state: CartState = {
   products: [],
   total: 0,
 }
 const mutations = {
-  // setCartItems(state: CartState, items: CartItem[]) {
-  //   state.products = items
-  //   state.total = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
-  // },
   addToCart(state: CartState, product: Product) {
     const existingItem = state.products.find((item) => item.product.id === product.id)
     if (existingItem) {
@@ -33,9 +29,6 @@ const mutations = {
   },
 }
 const actions = {
-  // getCartItems({ commit }, items: CartItem[]) {
-  //   commit('setCartItems', items)
-  // },
   addToCart({ commit }, product: Product) {
     commit('addToCart', product)
   },
