@@ -70,8 +70,10 @@ export default {
   }
 
   &__price {
-    font-weight: bold;
-    color: #2c3e50;
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin: 0.7rem 0;
+    color: var(--text-color);
   }
 
   &__description {
