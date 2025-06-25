@@ -49,6 +49,7 @@ export default {
   &__title {
     text-align: center;
     margin-bottom: 20px;
+    color: var(--primary-color);
   }
   &--loading,
   &--error {
@@ -61,7 +62,7 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 3rem;
+    gap: 5rem;
   }
   &__image {
     max-width: 400px;
@@ -72,15 +73,19 @@ export default {
     font-weight: 500;
     max-width: 400px;
     max-height: 400px;
+    height: auto;
   }
   &__description {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 1.2rem;
+    line-height: 1.7;
+    text-transform: lowercase;
   }
   &__price,
   &__category,
   &__rating {
     margin: 1rem 0;
+    color: var(--secondary-color);
   }
   &__add-to-cart {
     padding: 10px 20px;
@@ -92,6 +97,19 @@ export default {
 
     &:hover {
       background-color: var(--secondary-color);
+    }
+  }
+  // for small screens
+  @media (max-width: 600px) {
+    &__title {
+      font-size: 1.5rem;
+    }
+    &__image {
+      max-width: 100%;
+      max-height: 300px;
+    }
+    &__description {
+      font-size: 1rem;
     }
   }
 }
