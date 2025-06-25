@@ -1,6 +1,6 @@
 <script lang="ts">
 import { mapState, mapActions } from 'vuex'
-import { type Product } from '@/types/Product'
+import { type Product } from '@/types/products'
 export default {
   name: 'ProductPage',
   computed: {
@@ -45,7 +45,7 @@ export default {
 </template>
 <style lang="scss" scoped>
 .product {
-  margin: 3rem;
+  margin: 3rem 1rem;
   &__title {
     text-align: center;
     margin-bottom: 20px;
