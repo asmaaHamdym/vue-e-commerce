@@ -66,6 +66,7 @@ export default {
     height: 300px;
     border-radius: 4px;
     object-fit: contain;
+    margin: 0.6rem 0;
   }
 
   &__price {
