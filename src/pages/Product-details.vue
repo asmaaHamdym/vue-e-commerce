@@ -1,10 +1,11 @@
 <script lang="ts">
 import { mapState, mapActions } from 'vuex'
+import { type Product } from '@/types/Product'
 export default {
   name: 'ProductPage',
   computed: {
     ...mapState('products', {
-      product: (state) => state.currentProduct,
+      product: (state: Product) => state.currentProduct,
       isLoading: (state) => state.loading,
       error: (state) => state.error,
     }),

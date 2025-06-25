@@ -1,31 +1,24 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
 import NavbarLinks from './NavbarLinks.vue'
-import MobileNav from './NavMobile.vue'
+import HamburgerMenu from './HamburgerMenu.vue'
 import CartDrawer from '../CartDrawer.vue'
 import AppLink from '../shared/AppLink.vue'
+import { type ToggleMobileMenu } from '@/types/ToggleMobileMenu'
 
-interface NavBarData {
-  mobile: boolean
-  mobileNav: boolean
-  windowWidth: number
-  isCartopen: boolean
-}
-
-export default defineComponent<{}, {}, NavBarData>({
+export default {
   name: 'NavBar',
   components: {
     NavbarLinks,
-    MobileNav,
+    HamburgerMenu,
     CartDrawer,
     AppLink,
   },
-  data() {
+  data(): ToggleMobileMenu {
     return {
-      mobile: false as boolean,
-      mobileNav: false as boolean,
-      windowWidth: 0 as number,
-      isCartopen: false as boolean,
+      mobile: false,
+      mobileNav: false,
+      windowWidth: 0,
+      isCartopen: false,
     }
   },
   mounted() {
@@ -33,7 +26,7 @@ export default defineComponent<{}, {}, NavBarData>({
     window.addEventListener('resize', this.checkScreenWidth)
   },
   methods: {
-    toggleMobileNav() {
+    toggleMobileNav(): void {
       this.mobileNav = !this.mobileNav
     },
     checkScreenWidth() {
@@ -50,7 +43,7 @@ export default defineComponent<{}, {}, NavBarData>({
       this.isCartopen = false
     },
   },
-})
+}
 </script>
 <template>
   <header class="header">
@@ -82,7 +75,7 @@ export default defineComponent<{}, {}, NavBarData>({
       </div>
       <CartDrawer :is-open="isCartopen" @close="closeCart" />
     </nav>
-    <MobileNav v-if="mobile" :mobileNav="mobileNav" />
+    <HamburgerMenu v-if="mobile" :mobileNav="mobileNav" />
   </header>
 </template>
 <style lang="scss" scoped>
@@ -115,6 +108,13 @@ export default defineComponent<{}, {}, NavBarData>({
       color: var(--primary-color);
       z-index: 1000;
       transition: all 0.3s ease;
+      &:hover {
+        opacity: 0.8;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
     }
     &__icon--active {
       color: var(--secondary-color);
@@ -141,7 +141,7 @@ export default defineComponent<{}, {}, NavBarData>({
       justify-content: center;
       img {
         width: 70px;
-        transition: 0.5 ease all;
+        transition: 0.5s ease all;
       }
     }
   }

@@ -1,13 +1,7 @@
 <template>
   <ul class="nav">
-    <li class="nav__link">
-      <router-link :to="{ name: 'home' }" class="nav__link-item">Home</router-link>
-    </li>
-    <li class="nav__link">
-      <router-link :to="{ name: 'products' }" class="nav__link-item">Products</router-link>
-    </li>
-    <li class="nav__link">
-      <router-link :to="{ name: 'contact' }" class="nav__link-item">Contact us</router-link>
+    <li v-for="link in links" class="nav__link" :key="link.name">
+      <router-link :to="{ name: link.name }" class="nav__link-item">{{ link.label }}</router-link>
     </li>
   </ul>
 </template>
@@ -15,6 +9,15 @@
 <script lang="ts">
 export default {
   name: 'NavbarLinks',
+  data() {
+    return {
+      links: [
+        { name: 'home', label: 'Home' },
+        { name: 'products', label: 'Products' },
+        { name: 'contact', label: 'Contact us' },
+      ],
+    }
+  },
 }
 </script>
 
@@ -33,8 +36,8 @@ export default {
     padding: 16px;
     margin: 16px;
     &:hover {
-      color: #00efea;
-      border-color: #00efea;
+      color: var(--secondary-color);
+      border-color: var(--secondary-color);
     }
   }
 }

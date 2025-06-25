@@ -17,3 +17,9 @@ export interface ProductsState {
   loading: boolean
   error: string | null
 }
+export interface ToggleMobileMenu {
+  mobile: boolean
+  mobileNav: boolean
+  windowWidth: number
+  isCartOpen: boolean
+}

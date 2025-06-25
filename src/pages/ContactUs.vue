@@ -2,7 +2,7 @@
   <h1>Helo from home contact us page</h1>
 </template>
 
-<script>
+<script lang="ts">
 export default {}
 </script>
 

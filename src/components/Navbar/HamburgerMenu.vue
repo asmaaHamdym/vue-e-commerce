@@ -1,18 +1,10 @@
 <template>
   <transition name="mobile-nav">
     <ul v-show="mobileNav" class="mobile-nav-ul">
-      <li class="mobile-nav-ul__link">
-        <router-link :to="{ name: 'home' }" class="mobile-nav-ul__link-item">Home</router-link>
-      </li>
-      <li class="mobile-nav-ul__link">
-        <router-link :to="{ name: 'products' }" class="mobile-nav-ul__link-item"
-          >Products</router-link
-        >
-      </li>
-      <li class="mobile-nav-ul__link">
-        <router-link :to="{ name: 'contact' }" class="mobile-nav-ul__link-item"
-          >Contact us</router-link
-        >
+      <li class="mobile-nav-ul__link" v-for="link in links" :key="link.name">
+        <router-link :to="{ name: link.name }" class="mobile-nav-ul__link-item">{{
+          link.label
+        }}</router-link>
       </li>
     </ul>
   </transition>
@@ -20,12 +12,21 @@
 
 <script lang="ts">
 export default {
-  name: 'MobileNav',
+  name: 'HamburgerMenu',
   props: {
     mobileNav: {
       type: Boolean,
       required: true,
     },
+  },
+  data() {
+    return {
+      links: [
+        { name: 'home', label: 'Home' },
+        { name: 'products', label: 'Products' },
+        { name: 'contact', label: 'Contact us' },
+      ],
+    }
   },
 }
 </script>
@@ -41,8 +42,8 @@ export default {
   transition: transform 0.5s all ease;
   &__link {
     font-weight: 600;
-    padding: 0.2rem;
-    border-bottom: 1px solid var(--secondary-color);
+    padding: 0.4rem;
+    border-top: 1px solid var(--secondary-color);
   }
   &__link-item {
     text-decoration: none;
