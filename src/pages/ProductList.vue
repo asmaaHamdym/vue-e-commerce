@@ -3,7 +3,7 @@
     <div v-if="isLoading" class="products__loading">Loading products...</div>
 
     <div v-if="error" class="products__error">Error: {{ error }}</div>
-
+    <SortDropdown />
     <ul v-if="!isLoading && !error" class="products__list">
       <ProductCard
         v-for="product in products"
@@ -16,12 +16,15 @@
 </template>
 
 <script lang="ts">
+import { type Product } from '@/types/types'
 import ProductCard from '@/components/ProductCard.vue'
+import SortDropdown from '@/components/SortDropdown.vue'
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'Products',
+  name: 'ProductList',
   components: {
     ProductCard,
+    SortDropdown,
   },
   computed: {
     ...mapState('products', {

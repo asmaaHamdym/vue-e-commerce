@@ -47,7 +47,7 @@
 <script lang="ts">
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'CartSidebar',
+  name: 'SideCart',
   props: {
     isOpen: {
       type: Boolean,

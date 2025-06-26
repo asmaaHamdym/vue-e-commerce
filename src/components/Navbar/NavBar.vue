@@ -1,7 +1,7 @@
 <script lang="ts">
 import NavbarLinks from './NavbarLinks.vue'
 import HamburgerMenu from './HamburgerMenu.vue'
-import CartDrawer from '../CartSidebar.vue'
+import SideCart from '../SideCart.vue'
 import AppLink from '../shared/AppLink.vue'
 import { type ToggleMobileMenu } from '@/types/types'
 
@@ -10,7 +10,7 @@ export default {
   components: {
     NavbarLinks,
     HamburgerMenu,
-    CartDrawer,
+    SideCart,
     AppLink,
   },
   data(): ToggleMobileMenu {
@@ -73,7 +73,7 @@ export default {
           />
         </AppLink>
       </div>
-      <CartDrawer :is-open="isCartOpen" @close="closeCart" />
+      <SideCart :is-open="isCartOpen" @close="closeCart" />
     </nav>
     <HamburgerMenu v-if="mobile" :mobileNav="mobileNav" />
   </header>
