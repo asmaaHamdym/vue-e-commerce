@@ -4,7 +4,7 @@
     <main class="layout__content">
       <router-view />
     </main>
-    <FooterElement />
+    <FooterElement class="layout__footer" />
   </div>
 </template>
 
@@ -26,27 +26,29 @@ export default {
   flex-direction: column;
   min-height: 100vh;
   overflow: hidden;
+  margin-top: 2rem;
   &__header {
     position: fixed;
     top: 0;
     z-index: 1000;
     width: 100%;
     background-color: var(--bg-color);
-    color: #901b90;
+    color: var(--text-color);
     transition: background-color 0.5s ease all;
   }
   &__content {
     flex: 1;
-    padding: 20px;
-    margin-top: 6rem;
+    padding-bottom: 2rem;
+    margin: 2rem 0;
     height: auto;
   }
+
   &__footer {
-    position: fixed;
+    position: static;
     bottom: 0;
-    left: 0;
-    right: 0;
     width: 100%;
+    margin-top: 1rem;
+    padding-top: 5rem;
   }
 }
 </style>

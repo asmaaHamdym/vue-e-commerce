@@ -105,10 +105,14 @@ export default {
     color: white;
     border: none;
     border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
 
     &:hover {
       background-color: var(--secondary-color);
+    }
+    &:active {
+      transform: scale(98%);
     }
   }
   // for small screens
