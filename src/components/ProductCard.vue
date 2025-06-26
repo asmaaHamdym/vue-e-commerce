@@ -6,7 +6,18 @@
   >
     <h3 class="products__title">{{ product.title }}</h3>
     <img v-if="product.image" :src="product.image" :alt="product.title" class="products__image" />
-    <p class="products__price">${{ product.price }}</p>
+    <div class="products__price-rating">
+      <p class="products__price">${{ product.price }}</p>
+      <div class="products__rating">
+        <FontAwesomeIcon
+          v-for="n in 5"
+          :key="n"
+          :icon="n <= Math.round(product.rating.rate || 0) ? 'fas fa-star' : 'far fa-star'"
+          class="products__star"
+        ></FontAwesomeIcon>
+      </div>
+    </div>
+
     <p class="products__description">{{ product.description }}</p>
     <button @click.stop="addToCart(product)" class="products__add-to-cart">Add to Cart</button>
   </li>
@@ -69,11 +80,20 @@ export default {
     margin: 0.6rem 0;
   }
 
+  &__price-rating {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
   &__price {
     font-size: 1.3rem;
     font-weight: 900;
     margin: 0.7rem 0;
     color: var(--text-color);
+  }
+  &__star {
+    color: gold;
   }
 
   &__description {

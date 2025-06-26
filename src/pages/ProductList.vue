@@ -45,7 +45,7 @@ export default {
         case 'price-desc':
           return products.sort((a, b) => b.price - a.price)
         case 'rating':
-          return products.sort((a, b) => b.rating - a.rating)
+          return products.sort((a, b) => b.rating.rate - a.rating.rate)
         case 'category':
           return products.sort((a, b) => a.category.localeCompare(b.category))
 
