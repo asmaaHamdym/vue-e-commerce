@@ -1,13 +1,12 @@
 <template>
   <div class="products">
-    <div v-if="isLoading" class="products__loading">Loading products...</div>
-
-    <div v-if="error" class="products__error">Error: {{ error }}</div>
     <SortDropdown @sort="setSortOption" />
+    <div v-if="isLoading" class="products__loading">Loading products...</div>
+    <div v-if="error" class="products__error">Error: {{ error }}</div>
 
     <ul v-if="!isLoading && !error" class="products__list">
       <ProductCard
-        v-for="product in products"
+        v-for="product in sortedProducts"
         :key="product.id"
         class="products__item"
         :product="product"
@@ -38,6 +37,22 @@ export default {
       isLoading: (state) => state.loading,
       error: (state) => state.error,
     }),
+    sortedProducts(): Product[] {
+      const products = this.products.slice()
+      switch (this.filterBy) {
+        case 'price-asc':
+          return products.sort((a, b) => a.price - b.price)
+        case 'price-desc':
+          return products.sort((a, b) => b.price - a.price)
+        case 'rating':
+          return products.sort((a, b) => b.rating - a.rating)
+        case 'category':
+          return products.sort((a, b) => a.category.localeCompare(b.category))
+
+        default:
+          return products
+      }
+    },
   },
   methods: {
     ...mapActions('products', { loadProducts: 'fetchProducts' }),
