@@ -3,6 +3,7 @@ import Layout from '@/components/Layout/Layout.vue'
 import ProductList from '@/pages/ProductList.vue'
 import Product from '@/pages/Product-details.vue'
 import Contact from '@/pages/ContactUs.vue'
+import NotFound from '@/pages/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,12 @@ const router = createRouter({
           path: '/contact',
           name: 'contact',
           component: Contact,
+        },
+        // add not found route
+        {
+          path: '/:pathMatch(.*)*',
+          name: 'not-found',
+          component: NotFound,
         },
       ],
     },
