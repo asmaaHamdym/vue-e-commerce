@@ -1,12 +1,15 @@
 <template>
   <div class="products">
     <div class="products__controls">
-      <select v-model="selectedSortOption" class="products__select" @change="sortProducts">
-        <option value="" class="products__option">Default</option>
-        <option value="rating" class="products__option">Highest Rating</option>
-        <option value="price-asc" class="products__option">Price: Low to High</option>
-        <option value="price-desc" class="products__option">Price: High to Low</option>
-        <option value="category" class="products__option">Category</option>
+      <select v-model="selectedSortOption" class="products__select" @change="emitSelectedOption">
+        <option
+          v-for="option in options"
+          :value="option.value"
+          class="products__option"
+          :key="option.value"
+        >
+          {{ option.label }}
+        </option>
       </select>
     </div>
   </div>
@@ -16,13 +19,20 @@
 export default {
   name: 'ProductList',
   methods: {
-    sortProducts(): void {
+    emitSelectedOption(): void {
       this.$emit('sort', this.selectedSortOption)
     },
   },
   data() {
     return {
       selectedSortOption: '',
+      options: [
+        { value: '', label: 'Default' },
+        { value: 'rating', label: 'Highest Rating' },
+        { value: 'price-asc', label: 'Price: Low to High' },
+        { value: 'price-desc', label: 'Price: High to Low' },
+        { value: 'category', label: 'Category' },
+      ],
     }
   },
 }

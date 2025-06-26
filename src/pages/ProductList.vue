@@ -3,7 +3,8 @@
     <div v-if="isLoading" class="products__loading">Loading products...</div>
 
     <div v-if="error" class="products__error">Error: {{ error }}</div>
-    <SortDropdown />
+    <SortDropdown @sort="setSortOption" />
+
     <ul v-if="!isLoading && !error" class="products__list">
       <ProductCard
         v-for="product in products"
@@ -26,6 +27,11 @@ export default {
     ProductCard,
     SortDropdown,
   },
+  data() {
+    return {
+      filterBy: '' as string,
+    }
+  },
   computed: {
     ...mapState('products', {
       products: (state) => state.items,
@@ -35,6 +41,9 @@ export default {
   },
   methods: {
     ...mapActions('products', { loadProducts: 'fetchProducts' }),
+    setSortOption(selectedSortOption: string) {
+      this.filterBy = selectedSortOption
+    },
   },
   created() {
     this.loadProducts()
