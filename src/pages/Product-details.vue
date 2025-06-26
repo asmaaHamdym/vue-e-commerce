@@ -34,8 +34,17 @@ export default {
         <p class="product__price">Price: ${{ product.price }}</p>
         <p class="product__category">Category: {{ product.category }}</p>
         <p class="product__rating">
-          Rating: {{ product.rating.rate }} ({{ product.rating.count }} reviews)
+          Rating:
+          <span>
+            <FontAwesomeIcon
+              v-for="n in 5"
+              :key="n"
+              :icon="n <= Math.round(product.rating.rate || 0) ? 'fas fa-star' : 'far fa-star'"
+              class="product__star"
+            ></FontAwesomeIcon>
+          </span>
         </p>
+        <p class="product__rating">Reviews: {{ product.rating.count }}</p>
         <button class="product__add-to-cart" @click="$store.dispatch('cart/addToCart', product)">
           Add to Cart
         </button>
@@ -84,8 +93,11 @@ export default {
   &__price,
   &__category,
   &__rating {
-    margin: 1rem 0;
+    margin: 1rem;
     color: var(--secondary-color);
+  }
+  &__star {
+    color: gold;
   }
   &__add-to-cart {
     padding: 10px 20px;
