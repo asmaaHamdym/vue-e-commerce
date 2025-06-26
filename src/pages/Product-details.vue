@@ -1,17 +1,17 @@
 <script lang="ts">
 import { mapState, mapActions } from 'vuex'
-import { type Product } from '@/types/types'
+import { type Product, type ProductsState } from '@/types/types'
 export default {
   name: 'ProductPage',
   computed: {
-    ...mapState('products', {
-      product: (state: Product) => state.currentProduct,
+    ...mapState('selectedProduct', {
+      product: (state: ProductsState) => state.selectedProduct,
       isLoading: (state) => state.loading,
       error: (state) => state.error,
     }),
   },
   methods: {
-    ...mapActions('products', { loadProduct: 'fetchProductById' }),
+    ...mapActions('selectedProduct', { loadProduct: 'fetchProductById' }),
   },
   created() {
     const productId = this.$route.params.id

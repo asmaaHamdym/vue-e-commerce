@@ -1,13 +1,14 @@
 import { type ProductsState, type Product } from '@/types/types'
+
 const state: ProductsState = {
-  items: [],
   selectedProduct: null,
   loading: false,
   error: null,
 }
+
 const mutations = {
-  setProducts(state: ProductsState, products: Product[]) {
-    state.items = products
+  setselectedProduct(state: ProductsState, product: Product) {
+    state.selectedProduct = product
   },
   setLoading(state: ProductsState, loading: boolean) {
     state.loading = loading
@@ -17,16 +18,16 @@ const mutations = {
   },
 }
 const actions = {
-  async fetchProducts({ commit }) {
+  async fetchProductById({ commit }, productId: string) {
     commit('setLoading', true)
     commit('setError', null)
     try {
-      const response = await fetch('https://fakestoreapi.com/products')
+      const response = await fetch(`https://fakestoreapi.com/products/${productId}`)
       if (!response.ok) {
         throw new Error('Failed to fetch products')
       }
-      const data: Product[] = await response.json()
-      commit('setProducts', data)
+      const data: Product = await response.json()
+      commit('setselectedProduct', data)
     } catch (error) {
       commit('setError', error.message)
     } finally {
@@ -36,16 +37,17 @@ const actions = {
 }
 
 const getters = {
-  products: (state: ProductsState) => state.items,
+  selectedProduct: (state: ProductsState) => state.selectedProduct,
   loading: (state: ProductsState) => state.loading,
   error: (state: ProductsState) => state.error,
 }
 
-const productsModule = {
+const selectedProductModule = {
   namespaced: true,
   state,
   mutations,
   actions,
   getters,
 }
-export default productsModule
+
+export default selectedProductModule
