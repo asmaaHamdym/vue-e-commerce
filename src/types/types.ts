@@ -1,3 +1,4 @@
+// interface for products
 export interface Product {
   id: number
   title: string
@@ -17,13 +18,14 @@ export interface ProductsState {
   loading: boolean
   error: string | null
 }
+// interface for Hamburger menu
 export interface ToggleMobileMenu {
   mobile: boolean
   mobileNav: boolean
   windowWidth: number
   isCartOpen: boolean
 }
-// add interface for cart
+//  interface for cart
 export interface CartItem {
   product: Product
   quantity: number
