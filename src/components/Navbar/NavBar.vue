@@ -3,7 +3,7 @@ import NavbarLinks from './NavbarLinks.vue'
 import HamburgerMenu from './HamburgerMenu.vue'
 import SideCart from '../SideCart.vue'
 import AppLink from '../shared/AppLink.vue'
-import { type ToggleMobileMenu } from '@/types/types'
+import { type ToggleMobileMenu } from '../../types/types'
 
 export default {
   name: 'NavBar',
@@ -83,7 +83,6 @@ export default {
   .nav {
     position: relative;
     display: flex;
-    flex-direction: row;
     justify-content: space-around;
     align-items: center;
     transition: all 0.5s ease;
@@ -129,7 +128,7 @@ export default {
     .nav__action-link {
       text-decoration: none;
       font-size: 14px;
-      transition: 0.5 ease all;
+      transition: 0.5s ease all;
 
       &:hover {
         color: var(--secondary-color);

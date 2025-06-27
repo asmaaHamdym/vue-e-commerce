@@ -1,7 +1,11 @@
 <template>
   <ul class="nav">
     <li v-for="link in links" class="nav__link" :key="link.name">
-      <router-link :to="{ name: link.name }" class="nav__link-item">{{ link.label }}</router-link>
+      <router-link
+        :to="{ name: link.name }"
+        :class="['nav__link-item', { 'active-link': $route.name === link.name }]"
+        >{{ link.label }}</router-link
+      >
     </li>
   </ul>
 </template>
@@ -29,11 +33,17 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: 0.5s ease-in all;
+
+    .active-link {
+      color: var(--secondary-color);
+      font-weight: bold;
+      border-bottom: 1px solid var(--secondary-color);
+    }
   }
   &__link-item {
     text-decoration: none;
     text-transform: uppercase;
-    padding: 16px;
     margin: 16px;
     &:hover {
       color: var(--secondary-color);

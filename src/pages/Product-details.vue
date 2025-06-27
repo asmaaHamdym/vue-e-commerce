@@ -24,14 +24,14 @@ export default {
 
 <template>
   <main class="product">
-    <h1 v-if="!isLoading && !error" class="product__title">Product: {{ product.title }}</h1>
+    <h1 v-if="!isLoading && !error" class="product__title">{{ product.title }}</h1>
     <div v-if="isLoading" class="product--loading">Loading...</div>
     <div v-if="error" class="product--error">Error: {{ error }}</div>
     <div v-if="!isLoading && !error" class="product__container">
       <img :src="product.image" :alt="product.image" class="product__image" />
       <div class="product__details">
+        <p class="product__price">${{ product.price }}</p>
         <p class="product__description">{{ product.description }}</p>
-        <p class="product__price">Price: ${{ product.price }}</p>
         <p class="product__category">Category: {{ product.category }}</p>
         <p class="product__rating">
           Rating:
@@ -71,12 +71,13 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    gap: 5rem;
+    gap: 7rem;
   }
   &__image {
     max-width: 400px;
     max-height: 400px;
     border-radius: 10px;
+    padding: 1rem 0;
   }
   &__details {
     font-weight: 500;
@@ -85,12 +86,18 @@ export default {
     height: auto;
   }
   &__description {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 1.2rem;
     line-height: 1.7;
     text-transform: lowercase;
   }
-  &__price,
+  &__price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.5;
+    color: var(--primary-color);
+    margin: 1rem 0;
+  }
   &__category,
   &__rating {
     margin: 1rem;

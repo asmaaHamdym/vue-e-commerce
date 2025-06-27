@@ -22,7 +22,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  margin: 5rem 0;
   text-align: center;
   color: #333;
 

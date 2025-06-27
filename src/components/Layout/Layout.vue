@@ -34,7 +34,6 @@ export default {
     width: 100%;
     background-color: var(--bg-color);
     color: var(--text-color);
-    transition: background-color 0.5s ease all;
   }
   &__content {
     flex: 1;
