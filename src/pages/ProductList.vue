@@ -10,8 +10,10 @@
         :key="product.id"
         class="products__item"
         :product="product"
+        @product-added="showNotification"
       />
     </ul>
+    <div v-if="notificationVisible" class="products__notification">Product added to cart!</div>
   </div>
 </template>
 
@@ -29,6 +31,7 @@ export default {
   data() {
     return {
       filterBy: '' as string,
+      notificationVisible: false,
     }
   },
   computed: {
@@ -59,6 +62,12 @@ export default {
     setSortOption(selectedSortOption: string) {
       this.filterBy = selectedSortOption
     },
+    showNotification() {
+      this.notificationVisible = true
+      setTimeout(() => {
+        this.notificationVisible = false
+      }, 2000)
+    },
   },
   created() {
     this.loadProducts()
@@ -88,6 +97,21 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
+  }
+  &__notification {
+    position: fixed;
+    top: 10%;
+    right: 20%;
+    width: 20rem;
+    text-align: center;
+    font-size: 1.5rem;
+    background: #635f68;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    transition: opacity 0.3s;
   }
 }
 </style>
