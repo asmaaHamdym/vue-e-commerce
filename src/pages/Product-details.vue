@@ -1,8 +1,17 @@
 <script lang="ts">
 import { mapState, mapActions } from 'vuex'
-import { type Product, type ProductsState } from '@/types/types'
+import type { ProductsState } from '../types/types'
+import ItemAddedNotification from '../components/shared/ItemAddedNotifaction.vue'
 export default {
   name: 'ProductPage',
+  components: {
+    ItemAddedNotification,
+  },
+  data() {
+    return {
+      notificationVisible: false,
+    }
+  },
   computed: {
     ...mapState('selectedProduct', {
       product: (state: ProductsState) => state.selectedProduct,
@@ -12,7 +21,15 @@ export default {
   },
   methods: {
     ...mapActions('selectedProduct', { loadProduct: 'fetchProductById' }),
+    additemToCart(product) {
+      this.$store.dispatch('cart/addToCart', product)
+      this.notificationVisible = true
+      setTimeout(() => {
+        this.notificationVisible = false
+      }, 1500)
+    },
   },
+
   created() {
     const productId = this.$route.params.id
     if (productId) {
@@ -45,11 +62,10 @@ export default {
           </span>
         </p>
         <p class="product__rating">Reviews: {{ product.rating.count }}</p>
-        <button class="product__add-to-cart" @click="$store.dispatch('cart/addToCart', product)">
-          Add to Cart
-        </button>
+        <button class="product__add-to-cart" @click="additemToCart(product)">Add to Cart</button>
       </div>
     </div>
+    <ItemAddedNotification v-if="notificationVisible" />
   </main>
 </template>
 <style lang="scss" scoped>

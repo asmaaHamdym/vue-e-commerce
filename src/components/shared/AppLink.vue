@@ -1,8 +1,6 @@
 <template>
   <router-link :to="to" :class="className">
-    <slot>
-      <img src="../../assets/logo.png" alt="Colorful shopping bag logo" />
-    </slot>
+    <slot></slot>
   </router-link>
 </template>
 
