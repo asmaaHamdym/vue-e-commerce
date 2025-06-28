@@ -18,9 +18,9 @@
 </template>
 
 <script lang="ts">
-import { type Product } from '@/types/types'
-import ProductCard from '@/components/ProductCard.vue'
-import SortDropdown from '@/components/SortDropdown.vue'
+import { type Product } from '../types/types'
+import ProductCard from '../components/ProductCard.vue'
+import SortDropdown from '../components/SortDropdown.vue'
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'ProductList',

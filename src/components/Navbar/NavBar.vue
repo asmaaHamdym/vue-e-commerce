@@ -3,7 +3,7 @@ import NavbarLinks from './NavbarLinks.vue'
 import HamburgerMenu from './HamburgerMenu.vue'
 import SideCart from '../SideCart.vue'
 import AppLink from '../shared/AppLink.vue'
-import { type ToggleMobileMenu } from '../../types/types'
+import type { ToggleMobileMenu } from '../../types/types'
 
 export default {
   name: 'NavBar',
@@ -20,6 +20,11 @@ export default {
       windowWidth: 0,
       isCartOpen: false,
     }
+  },
+  computed: {
+    cartItemCount(): number {
+      return (this as any).$store.getters['cart/cartItemCount'] || 0
+    },
   },
   mounted() {
     this.checkScreenWidth()
@@ -64,13 +69,16 @@ export default {
       <NavbarLinks v-if="!mobile" />
       <div class="nav__actions">
         <AppLink :to="{ name: '' }" class="nav__action-link">Sign in</AppLink>
-        <AppLink :to="{ name: '' }" class="nav__action-link">
+        <AppLink :to="{ name: '' }" class="nav__action-link nav__cart-container">
           <font-awesome-icon
             icon="fa-solid fa-cart-shopping"
             size="2xl"
             class="nav__cart--trigger"
             @click="openCart"
           />
+          <span v-if="cartItemCount > 0" class="nav__cart-badge">
+            {{ cartItemCount }}
+          </span>
         </AppLink>
       </div>
       <SideCart :is-open="isCartOpen" @close="closeCart" />
@@ -97,7 +105,7 @@ export default {
       align-items: center;
       margin: 16px;
       gap: 16px;
-      text-wrap: nowrap;
+      white-space: nowrap;
     }
     &__icon {
       display: flex;
@@ -123,6 +131,30 @@ export default {
       background: none;
       border: none;
       cursor: pointer;
+    }
+
+    &__cart-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    &__cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background-color: var(--secondary-color);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+      min-width: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      z-index: 10;
     }
 
     .nav__action-link {

@@ -1,5 +1,5 @@
 <template>
-  <transition name="mobile-nav">
+  <div name="mobile-nav">
     <ul v-show="mobileNav" class="mobile-nav-ul">
       <li class="mobile-nav-ul__link" v-for="link in links" :key="link.name">
         <router-link
@@ -9,7 +9,7 @@
         >
       </li>
     </ul>
-  </transition>
+  </div>
 </template>
 
 <script lang="ts">
