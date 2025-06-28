@@ -1,18 +1,23 @@
 <template>
   <ul class="nav">
     <li v-for="link in links" class="nav__link" :key="link.name">
-      <router-link
+      <AppLink
         :to="{ name: link.name }"
-        :class="['nav__link-item', { 'active-link': $route.name === link.name }]"
-        >{{ link.label }}</router-link
+        :class-name="['nav__link-item', { 'active-link': $route.name === link.name }]"
+        >{{ link.label }}</AppLink
       >
     </li>
   </ul>
 </template>
 
 <script lang="ts">
+import AppLink from '../shared/AppLink.vue'
+
 export default {
   name: 'NavbarLinks',
+  components: {
+    AppLink,
+  },
   data() {
     return {
       links: [

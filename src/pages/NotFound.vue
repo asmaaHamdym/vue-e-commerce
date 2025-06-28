@@ -2,14 +2,18 @@
   <div class="not-found">
     <h1 class="not-found__header">404 - Not Found</h1>
     <p class="not-found__text">The page you are looking for does not exist.</p>
-    <router-link class="not-found__link" to="/">Go back to Home</router-link>
+    <AppLink class-name="not-found__link" to="/">Go back to Home</AppLink>
   </div>
 </template>
 
 <script lang="ts">
+import AppLink from '../components/shared/AppLink.vue'
+
 export default {
   name: 'NotFound',
-
+  components: {
+    AppLink,
+  },
   mounted() {
     document.title = '404 - Not Found'
   },

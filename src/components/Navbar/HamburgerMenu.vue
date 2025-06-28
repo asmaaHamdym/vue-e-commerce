@@ -2,10 +2,10 @@
   <div name="mobile-nav">
     <ul v-show="mobileNav" class="mobile-nav-ul">
       <li class="mobile-nav-ul__link" v-for="link in links" :key="link.name">
-        <router-link
+        <AppLink
           :to="{ name: link.name }"
-          :class="['mobile-nav-ul__link-item', { 'active-link': $route.name === link.name }]"
-          >{{ link.label }}</router-link
+          :class-name="['mobile-nav-ul__link-item', { 'active-link': $route.name === link.name }]"
+          >{{ link.label }}</AppLink
         >
       </li>
     </ul>
@@ -13,8 +13,13 @@
 </template>
 
 <script lang="ts">
+import AppLink from '../shared/AppLink.vue'
+
 export default {
   name: 'HamburgerMenu',
+  components: {
+    AppLink,
+  },
   props: {
     mobileNav: {
       type: Boolean,
