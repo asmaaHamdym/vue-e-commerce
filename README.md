@@ -115,7 +115,6 @@ A modern, responsive e-commerce web application built with Vue.js 3, TypeScript,
 ```
 src/
 ├── components/          # Reusable UI components
-│   ├── ContactForm/     # Contact page components
 │   ├── Footer/          # Footer components
 │   ├── Layout/          # Main layout wrapper
 │   ├── Navbar/          # Navigation components
@@ -135,8 +134,7 @@ src/
 │       ├── cart.ts      # Shopping cart management
 │       └── selectedProduct.ts # Selected product state
 ├── types/               # TypeScript type definitions
-├── assets/              # Static assets (images, styles)
-└── test/                # Test utilities and setup
+└── assets/              # Static assets (images, styles)
 ```
 
 ## 🔧 Configuration
@@ -187,16 +185,6 @@ The built files in the `dist` folder can be deployed to any static hosting servi
 - Firebase Hosting
 - AWS S3
 
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes and test them
-4. Run linting: `npm run lint`
-5. Commit your changes: `git commit -m 'Add some feature'`
-6. Push to the branch: `git push origin feature-name`
-7. Submit a pull request
-
 ## 📝 Code Quality
 
 This project maintains high code quality through:
@@ -223,14 +211,6 @@ Potential features to add:
 ## 📄 License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 🙋‍♀️ Support
-
-If you have any questions or run into issues, please:
-
-1. Check the existing issues in the repository
-2. Create a new issue with detailed information
-3. Provide steps to reproduce any bugs
 
 ---
 
