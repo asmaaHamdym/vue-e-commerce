@@ -11,7 +11,7 @@ export default {
 <style>
 .products__notification {
   position: fixed;
-  top: 70px;
+  top: 80px;
   right: 20px;
   width: 300px;
   max-width: calc(100vw - 40px);
