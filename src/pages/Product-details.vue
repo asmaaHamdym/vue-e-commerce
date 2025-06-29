@@ -106,6 +106,11 @@ export default {
     font-size: 1.2rem;
     line-height: 1.7;
     text-transform: lowercase;
+    // Limit to 10 lines
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 10;
+    -webkit-box-orient: vertical;
   }
   &__price {
     font-size: 1.5rem;

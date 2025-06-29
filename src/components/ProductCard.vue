@@ -98,7 +98,7 @@ export default {
 
   &__description {
     color: #666;
-    // Limit to 3 lines
+    // Limit to 2 lines
     overflow: hidden;
     display: -webkit-box;
     -webkit-line-clamp: 2;
