@@ -32,7 +32,7 @@ export default {
     top: 0;
     z-index: 1000;
     width: 100%;
-    background-color: var(--bg-color);
+    background-color: white;
     color: var(--text-color);
   }
   &__content {

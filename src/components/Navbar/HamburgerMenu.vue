@@ -44,7 +44,7 @@ export default {
   width: 100%;
   height: auto;
   max-height: 80spx;
-  background: var(--bg-color);
+  background: white;
   text-align: center;
   transition: transform 0.5s all ease;
   &__link {
@@ -52,6 +52,7 @@ export default {
     padding: 0.4rem;
   }
   .active-link {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: var(--secondary-color);
     font-weight: bold;
     border-bottom: 1px solid var(--secondary-color);

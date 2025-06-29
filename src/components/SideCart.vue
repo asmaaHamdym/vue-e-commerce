@@ -178,16 +178,16 @@ export default {
   }
   &__clear,
   &__checkout {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 0.5rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    font-size: 1.2rem;
+    font-size: 1rem;
     &:hover {
-      background-color: var(--primary-color);
+      background-color: var(--secondary-color);
     }
     &:active {
       transform: scale(0.98);

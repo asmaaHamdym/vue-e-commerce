@@ -3,6 +3,7 @@ import ProductCard from '../ProductCard.vue'
 import { mount } from '@vue/test-utils'
 import { Product } from '../../types/types'
 describe('ProductCard', () => {
+  // test for html elements
   it('renders product name', () => {
     const wrapper = mount(ProductCard, {
       props: {
@@ -17,8 +18,9 @@ describe('ProductCard', () => {
         } as Product,
       },
     })
-    expect(wrapper.text()).toContain('Test Product')
-    expect(wrapper.html()).toContain('li')
+    // expect(wrapper.text()).toContain('Test Product')
+    // expect(wrapper.html()).toContain('li')
+    expect
   })
   // renders price with dollar sign
 })

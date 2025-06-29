@@ -63,7 +63,7 @@ export default {
       </div>
       <div class="nav__logo">
         <AppLink :to="{ name: 'home' }" class="nav__logo-link">
-          <img src="../../assets/logo.png" alt="Colorful shopping bag logo" />
+          <img src="../../assets/online-shopping.png" alt="Colorful shopping bag logo" />
         </AppLink>
       </div>
       <NavbarLinks v-if="!mobile" />
