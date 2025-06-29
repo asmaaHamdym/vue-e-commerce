@@ -70,7 +70,8 @@ export default {
 </template>
 <style lang="scss" scoped>
 .product {
-  margin: 3rem 1rem;
+  margin: 3rem 1rem 5rem;
+
   &__title {
     text-align: center;
     margin-bottom: 20px;
