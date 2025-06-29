@@ -1,25 +1,25 @@
 <template>
   <li
-    class="products__item"
+    class="product__item"
     :key="product.id"
     @click="() => $router.push({ name: 'product', params: { id: product.id } })"
   >
-    <h3 class="products__title">{{ product.title }}</h3>
-    <img v-if="product.image" :src="product.image" :alt="product.title" class="products__image" />
-    <div class="products__price-rating">
-      <p class="products__price">${{ product.price }}</p>
-      <div class="products__rating">
+    <h3 class="product__title">{{ product.title }}</h3>
+    <img v-if="product.image" :src="product.image" :alt="product.title" class="product__image" />
+    <div class="product__price-rating">
+      <p class="product__price">${{ product.price }}</p>
+      <div class="product__rating">
         <FontAwesomeIcon
           v-for="n in 5"
           :key="n"
           :icon="n <= Math.round(product.rating.rate || 0) ? 'fas fa-star' : 'far fa-star'"
-          class="products__star"
+          class="product__star"
         ></FontAwesomeIcon>
       </div>
     </div>
 
-    <p class="products__description">{{ product.description }}</p>
-    <button @click.stop="addToCart(product)" class="products__add-to-cart">Add to Cart</button>
+    <p class="product__description">{{ product.description }}</p>
+    <button @click.stop="addToCart(product)" class="product__add-to-cart">Add to Cart</button>
   </li>
 </template>
 
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.products {
+.product {
   &__item {
     display: flex;
     flex-direction: column;

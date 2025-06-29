@@ -8,7 +8,6 @@
       <ProductCard
         v-for="product in sortedProducts"
         :key="product.id"
-        class="products__item"
         :product="product"
         @product-added="showNotification"
       />
@@ -18,7 +17,7 @@
 </template>
 
 <script lang="ts">
-import type { Product } from '../types/types'
+import type { Product, ProductsState } from '../types/types'
 import ProductCard from '../components/ProductCard.vue'
 import SortDropdown from '../components/SortDropdown.vue'
 import { mapState, mapActions } from 'vuex'
@@ -33,7 +32,7 @@ export default {
   data() {
     return {
       filterBy: '' as string,
-      notificationVisible: false,
+      notificationVisible: false as boolean,
     }
   },
   computed: {
@@ -46,13 +45,18 @@ export default {
       const products = this.products.slice()
       switch (this.filterBy) {
         case 'price-asc':
-          return products.sort((a, b) => a.price - b.price)
+          return products.sort((a: { price: number }, b: { price: number }) => a.price - b.price)
         case 'price-desc':
-          return products.sort((a, b) => b.price - a.price)
+          return products.sort((a: { price: number }, b: { price: number }) => b.price - a.price)
         case 'rating':
-          return products.sort((a, b) => b.rating.rate - a.rating.rate)
+          return products.sort(
+            (a: { rating: { rate: number } }, b: { rating: { rate: number } }) =>
+              b.rating.rate - a.rating.rate,
+          )
         case 'category':
-          return products.sort((a, b) => a.category.localeCompare(b.category))
+          return products.sort((a: { category: string }, b: { category: string }) =>
+            a.category.localeCompare(b.category),
+          )
 
         default:
           return products
@@ -64,7 +68,7 @@ export default {
     setSortOption(selectedSortOption: string) {
       this.filterBy = selectedSortOption
     },
-    showNotification() {
+    showNotification(): void {
       this.notificationVisible = true
       setTimeout(() => {
         this.notificationVisible = false
