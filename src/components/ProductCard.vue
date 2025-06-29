@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { type Product } from '../types/types'
+import type { Product } from '../types/types'
 export default {
   name: 'ProductCard',
 

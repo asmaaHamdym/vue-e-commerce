@@ -1,6 +1,6 @@
 // import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vitest/config'
 import vue from '@vitejs/plugin-vue'
 import vueDevTools from 'vite-plugin-vue-devtools'
 import path from 'path'
@@ -14,5 +14,9 @@ export default defineConfig({
       // '@': fileURLToPath(new URL('./src', import.meta.url))
       '@': path.resolve(__dirname, './src'),
     },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
   },
 })
