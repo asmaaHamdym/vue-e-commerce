@@ -92,3 +92,77 @@ it('renders product rating stars', () => {
   expect(stars[3].classes()).not.toContain('filled')
   expect(stars[4].classes()).not.toContain('filled')
 })
+// Test for clicking the card navigates to product details page
+it('navigates to product details page when card is clicked', async () => {
+  const mockPush = vi.fn()
+  const wrapper = mount(ProductCard, {
+    props: {
+      product: { ...mockProduct, id: 1 } as Product,
+    },
+    global: {
+      mocks: {
+        $router: {
+          push: mockPush,
+        },
+      },
+      components: {
+        FontAwesomeIcon: mockFontAwesome,
+      },
+    },
+  })
+
+  await wrapper.find('.product__item').trigger('click')
+
+  expect(mockPush).toHaveBeenCalledWith({
+    name: 'product',
+    params: { id: 1 },
+  })
+})
+
+// Test for clicking add to cart button adds product to cart
+it('adds product to cart when add to cart button is clicked', async () => {
+  const mockDispatch = vi.fn()
+  const wrapper = mount(ProductCard, {
+    props: {
+      product: mockProduct as Product,
+    },
+    global: {
+      mocks: {
+        $store: {
+          dispatch: mockDispatch,
+        },
+      },
+      components: {
+        FontAwesomeIcon: mockFontAwesome,
+      },
+    },
+  })
+
+  await wrapper.find('.product__add-to-cart').trigger('click')
+
+  expect(mockDispatch).toHaveBeenCalledWith('cart/addToCart', mockProduct)
+})
+
+// Test for add to cart button emits product-added event
+it('emits product-added event when add to cart button is clicked', async () => {
+  const wrapper = mount(ProductCard, {
+    props: {
+      product: mockProduct as Product,
+    },
+    global: {
+      mocks: {
+        $store: {
+          dispatch: vi.fn(),
+        },
+      },
+      components: {
+        FontAwesomeIcon: mockFontAwesome,
+      },
+    },
+  })
+
+  await wrapper.find('.product__add-to-cart').trigger('click')
+
+  expect(wrapper.emitted('product-added')).toBeTruthy()
+  // expect(wrapper.emitted('product-added')[0]).toEqual([mockProduct])
+})
