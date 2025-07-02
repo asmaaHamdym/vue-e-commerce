@@ -1,11 +1,11 @@
 <template>
-  <div class="products">
-    <div class="products__controls">
-      <select v-model="selectedSortOption" class="products__select" @change="emitSelectedOption">
+  <div class="dropdown">
+    <div class="dropdown__controls">
+      <select v-model="selectedSortOption" class="dropdown__select" @change="emitSelectedOption">
         <option
           v-for="option in options"
           :value="option.value"
-          class="products__option"
+          class="dropdown__option"
           :key="option.value"
         >
           {{ option.label }}
@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.products {
+.dropdown {
   &__controls {
     display: flex;
     justify-content: flex-end;
