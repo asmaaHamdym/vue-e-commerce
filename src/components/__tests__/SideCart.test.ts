@@ -35,8 +35,13 @@ const mockProduct2: Product = {
 describe('SideCart', () => {
   let emptyStore: any
   let storeWithProducts: any
+  let removeFromCartMock: any
+  let clearCartMock: any
 
   beforeEach(() => {
+    // mock fucntions
+    removeFromCartMock = vi.fn()
+    clearCartMock = vi.fn()
     // Store with empty cart
     emptyStore = createStore({
       modules: {
@@ -51,8 +56,8 @@ describe('SideCart', () => {
             cartTotal: (state) => state.total,
           },
           actions: {
-            removeFromCart: vi.fn(),
-            clearCart: vi.fn(),
+            removeFromCart: removeFromCartMock,
+            clearCart: clearCartMock,
           },
         },
       },
@@ -75,8 +80,8 @@ describe('SideCart', () => {
             cartTotal: (state) => state.total,
           },
           actions: {
-            removeFromCart: vi.fn(),
-            clearCart: vi.fn(),
+            removeFromCart: removeFromCartMock,
+            clearCart: clearCartMock,
           },
         },
       },
@@ -126,7 +131,8 @@ describe('SideCart', () => {
     expect(wrapper.emitted('close')).toBeTruthy()
   })
 
-  it('calls removeFromCart when remove button is clicked', async () => {
+  // removes from cart when remove button is clicked
+  it('calls removeFromCart action when remove button is clicked', async () => {
     const wrapper = mount(SideCart, {
       props: {
         isOpen: true,
@@ -136,10 +142,22 @@ describe('SideCart', () => {
       },
     })
 
-    const removeButton = wrapper.find('.cart-item__remove')
-    await removeButton.trigger('click')
+    await wrapper.find('.cart-item__remove').trigger('click')
+    expect(removeFromCartMock).toHaveBeenCalled()
+    expect(removeFromCartMock).toHaveBeenCalledWith(expect.anything(), mockProduct.id)
+  })
+  // clears cart when clear button is clicked
+  it('calls clearCart action when clear button is clicked', async () => {
+    const wrapper = mount(SideCart, {
+      props: {
+        isOpen: true,
+      },
+      global: {
+        plugins: [storeWithProducts],
+      },
+    })
 
-    // Check that the action was called (this would require proper mocking)
-    expect(wrapper.vm.removeFromCart).toBeDefined()
+    await wrapper.find('.cart-sidebar__clear').trigger('click')
+    expect(clearCartMock).toHaveBeenCalled()
   })
 })

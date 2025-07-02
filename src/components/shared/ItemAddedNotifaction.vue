@@ -37,6 +37,7 @@ export default {
     animation: slideInFromTop 0.3s ease-out;
   }
 }
+/* Animation for sliding notifacation */
 @keyframes slideInFromRight {
   from {
     transform: translateX(100%);

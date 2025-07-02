@@ -1,6 +1,5 @@
-// add store module for cart usinf vuex
-import { type Module } from 'vuex'
-import { type CartItem, type CartState, type Product } from '@/types/types'
+import type { Module } from 'vuex'
+import type { CartItem, CartState, Product } from '../types/types'
 
 const state: CartState = {
   products: [] as CartItem[],
