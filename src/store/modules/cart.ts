@@ -3,9 +3,10 @@ import { type Module } from 'vuex'
 import { type CartItem, type CartState, type Product } from '@/types/types'
 
 const state: CartState = {
-  products: [],
+  products: [] as CartItem[],
   total: 0,
 }
+
 const mutations = {
   addToCart(state: CartState, product: Product) {
     const existingItem = state.products.find((item) => item.product.id === product.id)
@@ -45,6 +46,7 @@ const getters = {
   cartItemCount: (state: CartState) =>
     state.products.reduce((count, item) => count + item.quantity, 0),
 }
+
 const cartModule: Module<CartState, any> = {
   namespaced: true,
   state,

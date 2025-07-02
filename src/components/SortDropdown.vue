@@ -17,7 +17,7 @@
 
 <script lang="ts">
 export default {
-  name: 'ProductList',
+  name: 'SortDropdown',
   methods: {
     emitSelectedOption(): void {
       this.$emit('sort', this.selectedSortOption)
