@@ -1,5 +1,5 @@
 import { it, describe, expect, vi } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import { Product } from '../../types/types'
 import ProductDetails from '../ProductDetails.vue'
 import { createStore } from 'vuex'
@@ -38,8 +38,7 @@ const store = createStore({
 
 describe('ProductDetails', () => {
   it('renders successfully', () => {
-    const wrapper = mount(ProductDetails, {
-      shallow: true,
+    const wrapper = shallowMount(ProductDetails, {
       global: {
         plugins: [store],
         mocks: {

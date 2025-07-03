@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { mount } from '@vue/test-utils'
+import { mount, shallowMount } from '@vue/test-utils'
 import ProductList from '../ProductList.vue'
 import { createStore } from 'vuex'
 
@@ -22,8 +22,7 @@ const store = createStore({
 })
 describe('ProductList', () => {
   it('renders successfully', () => {
-    const wrapper = mount(ProductList, {
-      shallow: true,
+    const wrapper = shallowMount(ProductList, {
       global: {
         plugins: [store],
       },
@@ -31,6 +30,7 @@ describe('ProductList', () => {
     expect(wrapper.exists()).toBe(true)
   })
   it('displays loading state', () => {
+    // store with loading state
     const store = createStore({
       modules: {
         products: {
@@ -48,8 +48,7 @@ describe('ProductList', () => {
         },
       },
     })
-    const wrapper = mount(ProductList, {
-      shallow: true,
+    const wrapper = shallowMount(ProductList, {
       global: {
         plugins: [store],
       },
@@ -57,6 +56,7 @@ describe('ProductList', () => {
     expect(wrapper.find('.products__loading').text()).toContain('Loading products...')
   })
   it('displays error state', () => {
+    // store with error state
     const store = createStore({
       modules: {
         products: {
@@ -74,8 +74,7 @@ describe('ProductList', () => {
         },
       },
     })
-    const wrapper = mount(ProductList, {
-      shallow: true,
+    const wrapper = shallowMount(ProductList, {
       global: {
         plugins: [store],
       },
