@@ -31,7 +31,7 @@ export default {
       links: [
         { name: 'home', label: 'Home' },
         { name: 'products', label: 'Products' },
-        { name: 'contact', label: 'Contact us' },
+        { name: 'contactus', label: 'Contact us' },
       ],
     }
   },

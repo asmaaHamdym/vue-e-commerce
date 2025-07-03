@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Layout from '@/components/Layout/Layout.vue'
 import ProductList from '@/pages/ProductList.vue'
 import Product from '@/pages/Product-details.vue'
-import Contact from '@/pages/ContactUs.vue'
+import ContactUs from '@/pages/ContactUs.vue'
 import NotFound from '@/pages/NotFound.vue'
 
 const router = createRouter({
@@ -25,9 +25,9 @@ const router = createRouter({
           props: true,
         },
         {
-          path: '/contact',
-          name: 'contact',
-          component: Contact,
+          path: '/contactus',
+          name: 'contactus',
+          component: ContactUs,
         },
         // add not found route
         {

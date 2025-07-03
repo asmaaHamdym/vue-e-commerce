@@ -32,7 +32,9 @@
 </template>
 
 <script lang="ts">
-export default {}
+export default {
+  name: 'ContactUs',
+}
 </script>
 
 <style lang="scss" scoped>
