@@ -27,11 +27,7 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'FooterInfo',
-}
-</script>
+<script lang="ts" setup></script>
 
 <style scoped lang="scss">
 .footer-info {

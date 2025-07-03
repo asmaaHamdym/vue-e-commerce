@@ -1,21 +1,7 @@
-<script lang="ts">
+<script lang="ts" setup>
 import FooterInfo from './FooterInfo.vue'
 import FooterNavigation from './FooterNavigation.vue'
 import FooterNewsletter from './FooterNewsletter.vue'
-
-export default {
-  name: 'FooterElement',
-  data() {
-    return {
-      currentYear: new Date().getFullYear(),
-    }
-  },
-  components: {
-    FooterNewsletter,
-    FooterNavigation,
-    FooterInfo,
-  },
-}
 </script>
 <template>
   <footer class="footer">

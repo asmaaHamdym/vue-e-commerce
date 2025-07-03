@@ -1,13 +1,6 @@
-<script lang="ts">
-export default {
-  name: 'FooterLinkGroup',
-
-  data() {
-    return {
-      currentYear: new Date().getFullYear(),
-    }
-  },
-}
+<script lang="ts" setup>
+import { ref } from 'vue'
+const currentYear = ref(new Date().getFullYear())
 </script>
 <template>
   <div class="footer-navigation">

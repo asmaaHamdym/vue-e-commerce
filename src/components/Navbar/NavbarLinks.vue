@@ -10,24 +10,14 @@
   </ul>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import AppLink from '../shared/AppLink.vue'
 
-export default {
-  name: 'NavbarLinks',
-  components: {
-    AppLink,
-  },
-  data() {
-    return {
-      links: [
-        { name: 'home', label: 'Home' },
-        { name: 'products', label: 'Products' },
-        { name: 'contactus', label: 'Contact us' },
-      ],
-    }
-  },
-}
+const links = [
+  { name: 'home', label: 'Home' },
+  { name: 'products', label: 'Products' },
+  { name: 'contactus', label: 'Contact us' },
+]
 </script>
 
 <style lang="scss" scoped>

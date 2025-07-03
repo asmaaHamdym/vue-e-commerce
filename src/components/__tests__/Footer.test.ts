@@ -23,10 +23,6 @@ describe('Footer Component', () => {
       expect(wrapper.exists()).toBe(true)
     })
 
-    it('has the correct component name', () => {
-      expect(wrapper.vm.$options.name).toBe('FooterElement')
-    })
-
     it('renders the main footer element', () => {
       const footer = wrapper.find('footer.footer')
       expect(footer.exists()).toBe(true)
@@ -60,13 +56,6 @@ describe('Footer Component', () => {
     })
   })
 
-  describe('Data Properties', () => {
-    it('has currentYear data property set to current year', () => {
-      const currentYear = new Date().getFullYear()
-      expect(wrapper.vm.currentYear).toBe(currentYear)
-    })
-  })
-
   describe('Structure', () => {
     it('has correct component structure', () => {
       const container = wrapper.find('.footer__container')
@@ -88,10 +77,6 @@ describe('FooterNewsletter Component', () => {
 
   it('renders without crashing', () => {
     expect(wrapper.exists()).toBe(true)
-  })
-
-  it('has the correct component name', () => {
-    expect(wrapper.vm.$options.name).toBe('NewsletterForm')
   })
 
   it('renders newsletter title', () => {
@@ -117,11 +102,6 @@ describe('FooterNewsletter Component', () => {
     expect(button.exists()).toBe(true)
     expect(button.text()).toBe('Submit')
   })
-
-  it('has email data property', () => {
-    expect(wrapper.vm.email).toBeDefined()
-    expect(wrapper.vm.email).toBe('')
-  })
 })
 
 describe('FooterNavigation Component', () => {
@@ -133,10 +113,6 @@ describe('FooterNavigation Component', () => {
 
   it('renders without crashing', () => {
     expect(wrapper.exists()).toBe(true)
-  })
-
-  it('has the correct component name', () => {
-    expect(wrapper.vm.$options.name).toBe('FooterLinkGroup')
   })
 
   it('renders navigation columns', () => {
@@ -157,11 +133,6 @@ describe('FooterNavigation Component', () => {
     const currentYear = new Date().getFullYear()
     expect(copyright.text()).toContain(`Copyright © All Rights Reserved ${currentYear}`)
   })
-
-  it('has currentYear data property', () => {
-    const currentYear = new Date().getFullYear()
-    expect(wrapper.vm.currentYear).toBe(currentYear)
-  })
 })
 
 describe('FooterInfo Component', () => {
@@ -179,10 +150,6 @@ describe('FooterInfo Component', () => {
 
   it('renders without crashing', () => {
     expect(wrapper.exists()).toBe(true)
-  })
-
-  it('has the correct component name', () => {
-    expect(wrapper.vm.$options.name).toBe('FooterInfo')
   })
 
   it('renders address information', () => {

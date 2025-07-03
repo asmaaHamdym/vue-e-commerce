@@ -13,16 +13,7 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'NewsletterForm',
-  data() {
-    return {
-      email: '',
-    }
-  },
-}
-</script>
+<script lang="ts" setup></script>
 
 <style scoped lang="scss">
 .newsletter {
