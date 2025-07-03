@@ -15,8 +15,8 @@ export default {
   computed: {
     ...mapState('selectedProduct', {
       product: (state: ProductsState) => state.selectedProduct,
-      isLoading: (state) => state.loading,
-      error: (state) => state.error,
+      isLoading: (state: ProductsState) => state.loading,
+      error: (state: ProductsState) => state.error,
     }),
   },
   methods: {
