@@ -1,4 +1,4 @@
-import { type ProductsState, type Product } from '@/types/types'
+import type { ProductsState, Product } from '@/types/types'
 
 const state: ProductsState = {
   selectedProduct: null,

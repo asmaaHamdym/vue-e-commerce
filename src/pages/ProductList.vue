@@ -1,6 +1,9 @@
 <template>
   <div class="products">
-    <SortDropdown @sort="setSortOption" />
+    <div class="products__header">
+      <h1 class="products__title">Products</h1>
+      <SortDropdown @sort="setSortOption" />
+    </div>
     <div v-if="isLoading" class="products__loading">Loading products...</div>
     <div v-if="error" class="products__error">Error: {{ error }}</div>
 
@@ -17,7 +20,7 @@
 </template>
 
 <script lang="ts">
-import type { Product, ProductsState } from '../types/types'
+import type { Product } from '../types/types'
 import ProductCard from '../components/ProductCard.vue'
 import SortDropdown from '../components/SortDropdown.vue'
 import { mapState, mapActions } from 'vuex'
@@ -37,12 +40,12 @@ export default {
   },
   computed: {
     ...mapState('products', {
-      products: (state) => state.items,
+      items: (state) => state.items,
       isLoading: (state) => state.loading,
       error: (state) => state.error,
     }),
     sortedProducts(): Product[] {
-      const products = this.products.slice()
+      const products = [...this.items]
       switch (this.filterBy) {
         case 'price-asc':
           return products.sort((a: { price: number }, b: { price: number }) => a.price - b.price)
@@ -84,6 +87,18 @@ export default {
 <style lang="scss" scoped>
 .products {
   margin: 2rem;
+  &__header {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 1rem;
+    padding: 1rem;
+  }
+  &__title {
+    text-align: center;
+    font-size: 2rem;
+    padding: 0 0.5rem;
+    color: var(--primary-color);
+  }
   &__loading,
   &__error {
     padding: 1rem;
@@ -103,6 +118,12 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
+  }
+  // media query for smaller screens
+  @media (max-width: 768px) {
+    &__title {
+      font-size: 1.5rem;
+    }
   }
 }
 </style>

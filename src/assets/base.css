@@ -18,4 +18,9 @@ a,
 button {
   -webkit-tap-highlight-color: transparent;
   outline: none;
+
+}
+
+a:visited {
+  color: inherit;
 }

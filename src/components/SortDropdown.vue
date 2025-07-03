@@ -52,5 +52,13 @@ export default {
     font-size: 1rem;
     cursor: pointer;
   }
+  // media query for smaller screens
+  @media (max-width: 768px) {
+    &__select {
+      width: 80%;
+      height: 2.5rem;
+      font-size: 1rem;
+    }
+  }
 }
 </style>

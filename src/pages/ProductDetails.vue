@@ -1,9 +1,9 @@
 <script lang="ts">
 import { mapState, mapActions } from 'vuex'
-import type { ProductsState } from '../types/types'
+import type { ProductsState, Product } from '../types/types'
 import ItemAddedNotification from '../components/shared/ItemAddedNotifaction.vue'
 export default {
-  name: 'ProductPage',
+  name: 'ProductDetails',
   components: {
     ItemAddedNotification,
   },
@@ -21,7 +21,7 @@ export default {
   },
   methods: {
     ...mapActions('selectedProduct', { loadProduct: 'fetchProductById' }),
-    additemToCart(product) {
+    additemToCart(product: Product) {
       this.$store.dispatch('cart/addToCart', product)
       this.notificationVisible = true
       setTimeout(() => {
@@ -41,9 +41,9 @@ export default {
 
 <template>
   <main class="product">
-    <h1 v-if="!isLoading && !error" class="product__title">{{ product.title }}</h1>
     <div v-if="isLoading" class="product--loading">Loading...</div>
     <div v-if="error" class="product--error">Error: {{ error }}</div>
+    <h1 v-if="!isLoading && !error" class="product__title">{{ product.title }}</h1>
     <div v-if="!isLoading && !error" class="product__container">
       <img :src="product.image" :alt="product.image" class="product__image" />
       <div class="product__details">
