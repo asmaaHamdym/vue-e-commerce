@@ -19,7 +19,7 @@ export interface ProductsState {
   error: string | null
 }
 // interface for Hamburger menu
-export interface ToggleMobileMenu {
+export interface MobileMenu {
   mobile: boolean
   mobileNav: boolean
   windowWidth: number

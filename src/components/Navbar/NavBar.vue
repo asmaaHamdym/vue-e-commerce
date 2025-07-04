@@ -1,54 +1,47 @@
-<script lang="ts">
+<script lang="ts" setup>
 import NavbarLinks from './NavbarLinks.vue'
 import HamburgerMenu from './HamburgerMenu.vue'
 import SideCart from '../SideCart.vue'
 import AppLink from '../shared/AppLink.vue'
-import type { ToggleMobileMenu } from '../../types/types'
+import type { MobileMenu } from '../../types/types'
+import { computed, onMounted, reactive, toRef } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  name: 'NavBar',
-  components: {
-    NavbarLinks,
-    HamburgerMenu,
-    SideCart,
-    AppLink,
-  },
-  data(): ToggleMobileMenu {
-    return {
-      mobile: false,
-      mobileNav: false,
-      windowWidth: 0,
-      isCartOpen: false,
-    }
-  },
-  computed: {
-    cartItemCount(): number {
-      return (this as any).$store.getters['cart/cartItemCount'] || 0
-    },
-  },
-  mounted() {
-    this.checkScreenWidth()
-    window.addEventListener('resize', this.checkScreenWidth)
-  },
-  methods: {
-    toggleMobileNav(): void {
-      this.mobileNav = !this.mobileNav
-    },
-    checkScreenWidth() {
-      this.windowWidth = window.innerWidth
-      this.mobile = this.windowWidth < 750
-      if (this.mobileNav && !this.mobile) {
-        this.mobileNav = false
-      }
-    },
-    openCart() {
-      this.isCartOpen = true
-    },
-    closeCart() {
-      this.isCartOpen = false
-    },
-  },
+//useing to refs to destructure reactive state for better readability
+
+const state = reactive<MobileMenu>({
+  mobile: false,
+  mobileNav: false,
+  windowWidth: 0,
+  isCartOpen: false,
+})
+
+const checkScreenWidth = () => {
+  state.windowWidth = window.innerWidth
+  state.mobile = state.windowWidth < 750
+  if (state.mobileNav && !state.mobile) {
+    state.mobileNav = false
+  }
 }
+const toggleMobileNav = () => {
+  state.mobileNav = !state.mobileNav
+}
+const openCart = () => {
+  state.isCartOpen = true
+}
+const closeCart = () => {
+  state.isCartOpen = false
+}
+
+const store = useStore()
+const cartItemCount = computed(() => {
+  return store.getters['cart/cartItemCount'] || 0
+})
+
+onMounted(() => {
+  checkScreenWidth()
+  window.addEventListener('resize', checkScreenWidth)
+})
 </script>
 <template>
   <header class="header">
@@ -57,8 +50,8 @@ export default {
         <FontAwesomeIcon
           :icon="['fas', 'bars']"
           @click="toggleMobileNav"
-          v-show="mobile"
-          :class="{ 'nav__icon--active': mobileNav }"
+          v-if="state.mobile"
+          :class="{ 'nav__icon--active': state.mobileNav }"
         />
       </div>
       <div class="nav__logo">
@@ -70,7 +63,7 @@ export default {
           />
         </AppLink>
       </div>
-      <NavbarLinks v-if="!mobile" />
+      <NavbarLinks v-if="!state.mobile" />
       <div class="nav__actions">
         <AppLink :to="{ name: '' }" class="nav__action-link">Sign in</AppLink>
         <AppLink :to="{ name: '' }" class="nav__action-link nav__cart-container">
@@ -85,9 +78,9 @@ export default {
           </span>
         </AppLink>
       </div>
-      <SideCart :is-open="isCartOpen" @close="closeCart" />
+      <SideCart :is-open="state.isCartOpen" @close="closeCart" />
     </nav>
-    <HamburgerMenu v-if="mobile" :mobileNav="mobileNav" />
+    <HamburgerMenu v-if="state.mobile" :mobileNav="state.mobileNav" />
   </header>
 </template>
 <style lang="scss" scoped>

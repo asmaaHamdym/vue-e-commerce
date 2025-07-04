@@ -1,6 +1,6 @@
 <template>
   <div name="mobile-nav">
-    <ul v-show="mobileNav" class="mobile-nav-ul">
+    <ul v-if="mobileNav" class="mobile-nav-ul">
       <li class="mobile-nav-ul__link" v-for="link in links" :key="link.name">
         <AppLink
           :to="{ name: link.name }"
@@ -12,30 +12,19 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import AppLink from '../shared/AppLink.vue'
-
-export default {
-  name: 'HamburgerMenu',
-  components: {
-    AppLink,
+const links = [
+  { name: 'home', label: 'Home' },
+  { name: 'products', label: 'Products' },
+  { name: 'contactus', label: 'Contact us' },
+]
+defineProps({
+  mobileNav: {
+    type: Boolean,
+    required: true,
   },
-  props: {
-    mobileNav: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  data() {
-    return {
-      links: [
-        { name: 'home', label: 'Home' },
-        { name: 'products', label: 'Products' },
-        { name: 'contactus', label: 'Contact us' },
-      ],
-    }
-  },
-}
+})
 </script>
 
 <style lang="scss" scoped>
