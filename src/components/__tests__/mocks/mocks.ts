@@ -1,3 +1,8 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import { routes } from '../../../router/index'
+import { createStore } from 'vuex'
+import { Product } from '../../../types/types'
+
 // Mock Product props
 export const mockProduct = {
   id: 1,
@@ -9,9 +14,9 @@ export const mockProduct = {
     count: 26,
   },
   description: 'This is a test product description.',
-}
-// Mock FontAwesome icon component
+} as Product
 
+// Mock FontAwesome icon component
 export const mockFontAwesome = {
   template: '<i :class="starClass" :data-icon="iconType"></i>',
   props: ['icon'],
@@ -29,3 +34,21 @@ export const mockFontAwesome = {
     },
   },
 }
+
+// Mock Vue Router
+export const router = createRouter({
+  history: createWebHistory(),
+  routes: routes,
+})
+
+// Mock Vuex store
+export const $store = createStore({
+  state: {
+    cart: [],
+  },
+  mutations: {
+    addToCart(state, product) {
+      state.cart.push(product)
+    },
+  },
+})

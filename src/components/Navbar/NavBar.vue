@@ -4,7 +4,7 @@ import HamburgerMenu from './HamburgerMenu.vue'
 import SideCart from '../SideCart.vue'
 import AppLink from '../shared/AppLink.vue'
 import type { MobileMenu } from '../../types/types'
-import { computed, onMounted, reactive, toRef } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { useStore } from 'vuex'
 
 //useing to refs to destructure reactive state for better readability
@@ -80,7 +80,11 @@ onMounted(() => {
       </div>
       <SideCart :is-open="state.isCartOpen" @close="closeCart" />
     </nav>
-    <HamburgerMenu v-if="state.mobile" :mobileNav="state.mobileNav" />
+    <HamburgerMenu
+      v-if="state.mobile"
+      :mobileNav="state.mobileNav"
+      @close-mobile-nav="toggleMobileNav"
+    />
   </header>
 </template>
 <style lang="scss" scoped>

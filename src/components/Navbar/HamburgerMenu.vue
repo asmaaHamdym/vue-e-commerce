@@ -5,6 +5,7 @@
         <AppLink
           :to="{ name: link.name }"
           :class-name="['mobile-nav-ul__link-item', { 'active-link': $route.name === link.name }]"
+          @click="emit('closeMobileNav')"
           >{{ link.label }}</AppLink
         >
       </li>
@@ -25,6 +26,7 @@ defineProps({
     required: true,
   },
 })
+const emit = defineEmits(['closeMobileNav'])
 </script>
 
 <style lang="scss" scoped>

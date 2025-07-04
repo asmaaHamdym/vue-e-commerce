@@ -1,35 +1,15 @@
 import { it, describe, expect, vi, beforeEach } from 'vitest'
 import ProductCard from '../ProductCard.vue'
 import { mount, type VueWrapper } from '@vue/test-utils'
-import { Product } from '../../types/types'
-import { mockProduct, mockFontAwesome } from './mocks/mocks'
-import { createStore } from 'vuex'
-import { createRouter, createWebHistory } from 'vue-router'
-import { routes } from '../../router/index'
-
-// Mock Vuex store
-const $store = createStore({
-  state: {
-    cart: [],
-  },
-  mutations: {
-    addToCart(state, product) {
-      state.cart.push(product)
-    },
-  },
-})
-// Mock Vue Router
-const router = createRouter({
-  history: createWebHistory(),
-  routes: routes,
-})
+import { mockProduct, mockFontAwesome, router, $store } from './mocks/mocks'
 
 let wrapper: VueWrapper<InstanceType<typeof ProductCard>>
+
 // passing the mock product, router and store to the component before each test
 beforeEach(() => {
   wrapper = mount(ProductCard, {
     props: {
-      product: mockProduct as Product,
+      product: mockProduct,
     },
     global: {
       plugins: [router, $store],
@@ -79,5 +59,5 @@ it('emits product-added event when add to cart button is clicked', async () => {
   await wrapper.find('.product__add-to-cart').trigger('click')
 
   expect(wrapper.emitted('product-added')).toHaveLength(1)
-  expect(wrapper.emitted('product-added')[0]).toEqual([mockProduct])
+  expect(wrapper.emitted('product-added')?.[0]).toEqual([mockProduct])
 })
