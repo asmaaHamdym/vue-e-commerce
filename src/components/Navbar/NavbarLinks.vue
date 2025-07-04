@@ -1,9 +1,10 @@
 <template>
-  <ul class="nav">
+  <ul :class="containerClass">
     <li v-for="link in links" class="nav__link" :key="link.name">
       <AppLink
         :to="{ name: link.name }"
         :class-name="['nav__link-item', { 'active-link': $route.name === link.name }]"
+        @click="handleLinkClick"
         >{{ link.label }}</AppLink
       >
     </li>
@@ -18,6 +19,17 @@ const links = [
   { name: 'products', label: 'Products' },
   { name: 'contactus', label: 'Contact us' },
 ]
+
+defineProps({
+  containerClass: {
+    type: String,
+    default: 'nav',
+  },
+})
+const emit = defineEmits(['linkClicked'])
+const handleLinkClick = () => {
+  emit('linkClicked')
+}
 </script>
 
 <style lang="scss" scoped>
