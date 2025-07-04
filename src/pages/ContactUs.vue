@@ -31,12 +31,6 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'ContactUs',
-}
-</script>
-
 <style lang="scss" scoped>
 .contact {
   margin: 4rem 0;

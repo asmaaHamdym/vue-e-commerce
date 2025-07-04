@@ -2,12 +2,6 @@
   <div class="products__notification">Product added to cart!</div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'ItemAddedNotification',
-}
-</script>
-
 <style>
 .products__notification {
   position: fixed;

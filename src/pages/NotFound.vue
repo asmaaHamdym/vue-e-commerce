@@ -6,18 +6,12 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { onMounted } from 'vue'
 import AppLink from '../components/shared/AppLink.vue'
-
-export default {
-  name: 'NotFound',
-  components: {
-    AppLink,
-  },
-  mounted() {
-    document.title = '404 - Not Found'
-  },
-}
+onMounted(() => {
+  document.title = '404 - Not Found'
+})
 </script>
 
 <style lang="scss" scoped>

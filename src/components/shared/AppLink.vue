@@ -4,20 +4,17 @@
   </router-link>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'AppLink',
-  props: {
-    to: {
-      type: [String, Object],
-      required: true,
-    },
-    className: {
-      type: [String, Array, Object],
-      default: '',
-    },
+<script lang="ts" setup>
+defineProps({
+  to: {
+    type: [String, Object],
+    required: true,
   },
-}
+  className: {
+    type: [String, Array, Object],
+    default: '',
+  },
+})
 </script>
 
 <style></style>
