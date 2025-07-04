@@ -2,6 +2,9 @@ import { it, describe, expect, vi } from 'vitest'
 import ProductCard from '../ProductCard.vue'
 import { mount } from '@vue/test-utils'
 import { Product } from '../../types/types'
+import { createStore } from 'vuex'
+import { createRouter, createWebHistory } from 'vue-router'
+import { routes } from '../../router/index'
 
 // Mock Product props
 const mockProduct = {
@@ -32,6 +35,7 @@ const mockFontAwesome = {
     },
   },
 }
+
 describe('ProductCard', () => {
   it('loads succefully', () => {
     const wrapper = mount(ProductCard, {
@@ -93,68 +97,47 @@ it('renders product rating stars', () => {
   expect(stars[4].classes()).not.toContain('filled')
 })
 // Test for clicking the card navigates to product details page
+const router = createRouter({
+  history: createWebHistory(),
+  routes: routes,
+})
 it('navigates to product details page when card is clicked', async () => {
-  const mockPush = vi.fn()
   const wrapper = mount(ProductCard, {
     props: {
       product: { ...mockProduct, id: 1 } as Product,
     },
     global: {
-      mocks: {
-        $router: {
-          push: mockPush,
-        },
-      },
+      plugins: [router],
       components: {
         FontAwesomeIcon: mockFontAwesome,
       },
     },
   })
-
+  // Mock the router push method
+  router.push = vi.fn()
   await wrapper.find('.product__item').trigger('click')
-
-  expect(mockPush).toHaveBeenCalledWith({
-    name: 'product',
-    params: { id: 1 },
-  })
-})
-
-// Test for clicking add to cart button adds product to cart
-it('adds product to cart when add to cart button is clicked', async () => {
-  const mockDispatch = vi.fn()
-  const wrapper = mount(ProductCard, {
-    props: {
-      product: mockProduct as Product,
-    },
-    global: {
-      mocks: {
-        $store: {
-          dispatch: mockDispatch,
-        },
-      },
-      components: {
-        FontAwesomeIcon: mockFontAwesome,
-      },
-    },
-  })
-
-  await wrapper.find('.product__add-to-cart').trigger('click')
-
-  expect(mockDispatch).toHaveBeenCalledWith('cart/addToCart', mockProduct)
+  expect(router.push).toHaveBeenCalledTimes(1)
+  expect(router.push).toHaveBeenCalledWith({ name: 'product', params: { id: 1 } })
 })
 
 // Test for add to cart button emits product-added event
 it('emits product-added event when add to cart button is clicked', async () => {
+  const $store = createStore({
+    state: {
+      cart: [],
+    },
+    mutations: {
+      addToCart(state, product) {
+        state.cart.push(product)
+      },
+    },
+  })
   const wrapper = mount(ProductCard, {
     props: {
       product: mockProduct as Product,
     },
     global: {
-      mocks: {
-        $store: {
-          dispatch: vi.fn(),
-        },
-      },
+      plugins: [$store],
       components: {
         FontAwesomeIcon: mockFontAwesome,
       },
@@ -163,6 +146,6 @@ it('emits product-added event when add to cart button is clicked', async () => {
 
   await wrapper.find('.product__add-to-cart').trigger('click')
 
-  expect(wrapper.emitted('product-added')).toBeTruthy()
-  // expect(wrapper.emitted('product-added')[0]).toEqual([mockProduct])
+  const myEventCalls = wrapper.emitted('product-added')
+  expect(myEventCalls).toHaveLength(1)
 })

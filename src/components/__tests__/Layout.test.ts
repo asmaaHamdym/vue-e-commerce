@@ -46,10 +46,6 @@ describe('Layout Component', () => {
       expect(wrapper.exists()).toBe(true)
     })
 
-    it('has the correct component name', () => {
-      expect(wrapper.vm.$options.name).toBe('AppLayout')
-    })
-
     it('renders the main layout container', () => {
       const layoutContainer = wrapper.find('.layout')
       expect(layoutContainer.exists()).toBe(true)
@@ -114,16 +110,6 @@ describe('Layout Component', () => {
     it('footer has the correct class', () => {
       const footer = wrapper.findComponent(mockFooter)
       expect(footer.classes()).toContain('layout__footer')
-    })
-  })
-
-  describe('Component Registration', () => {
-    it('registers Navbar component correctly', () => {
-      expect(wrapper.vm.$options.components?.Navbar).toBeDefined()
-    })
-
-    it('registers FooterElement component correctly', () => {
-      expect(wrapper.vm.$options.components?.FooterElement).toBeDefined()
     })
   })
 

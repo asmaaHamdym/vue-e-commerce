@@ -15,26 +15,19 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'SortDropdown',
-  methods: {
-    emitSelectedOption(): void {
-      this.$emit('sort', this.selectedSortOption)
-    },
-  },
-  data() {
-    return {
-      selectedSortOption: '',
-      options: [
-        { value: '', label: 'Default' },
-        { value: 'rating', label: 'Highest Rating' },
-        { value: 'price-asc', label: 'Price: Low to High' },
-        { value: 'price-desc', label: 'Price: High to Low' },
-        { value: 'category', label: 'Category' },
-      ],
-    }
-  },
+<script lang="ts" setup>
+import { ref } from 'vue'
+const selectedSortOption = ref('')
+const options = ref([
+  { value: '', label: 'Default' },
+  { value: 'rating', label: 'Highest Rating' },
+  { value: 'price-asc', label: 'Price: Low to High' },
+  { value: 'price-desc', label: 'Price: High to Low' },
+  { value: 'category', label: 'Category' },
+])
+const emit = defineEmits(['sort'])
+const emitSelectedOption = () => {
+  emit('sort', selectedSortOption.value)
 }
 </script>
 

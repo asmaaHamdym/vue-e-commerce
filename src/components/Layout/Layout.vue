@@ -8,16 +8,9 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import Navbar from '../Navbar/NavBar.vue'
 import FooterElement from '../Footer/Footer.vue'
-export default {
-  name: 'AppLayout',
-  components: {
-    Navbar,
-    FooterElement,
-  },
-}
 </script>
 
 <style lang="scss" scoped>

@@ -3,6 +3,7 @@ import FooterInfo from './FooterInfo.vue'
 import FooterNavigation from './FooterNavigation.vue'
 import FooterNewsletter from './FooterNewsletter.vue'
 </script>
+
 <template>
   <footer class="footer">
     <div class="footer__container">

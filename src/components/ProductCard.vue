@@ -1,9 +1,5 @@
 <template>
-  <li
-    class="product__item"
-    :key="product.id"
-    @click="() => $router.push({ name: 'product', params: { id: product.id } })"
-  >
+  <li class="product__item" :key="product.id" @click="goToProductDetail(product.id)">
     <h3 class="product__title">{{ product.title }}</h3>
     <img v-if="product.image" :src="product.image" :alt="product.title" class="product__image" />
     <div class="product__price-rating">
@@ -23,25 +19,28 @@
   </li>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { useStore } from 'vuex'
 import type { Product } from '../types/types'
-export default {
-  name: 'ProductCard',
+import { useRouter } from 'vue-router'
 
-  props: {
-    product: {
-      type: Object as () => Product,
-      required: true,
-    },
+const store = useStore()
+defineProps({
+  product: {
+    type: Object as () => Product,
+    required: true,
   },
+})
+const emit = defineEmits(['product-added'])
 
-  methods: {
-    addToCart(product: Product) {
-      this.$store.dispatch('cart/addToCart', product)
-      this.$emit('product-added', product)
-    },
-  },
-  mounted() {},
+const addToCart = (product: Product) => {
+  emit('product-added', product)
+  store.dispatch('cart/addToCart', product)
+}
+const router = useRouter()
+
+const goToProductDetail = (productId: number) => {
+  router.push({ name: 'product', params: { id: productId } })
 }
 </script>
 
