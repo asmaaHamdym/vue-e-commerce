@@ -16,6 +16,20 @@ export const mockProduct = {
   description: 'This is a test product description.',
 } as Product
 
+// Mock product 2
+export const mockProduct2: Product = {
+  id: 2,
+  title: 'Test Product 2',
+  price: 200,
+  image: 'test-image-2.jpg',
+  rating: {
+    rate: 3.5,
+    count: 30,
+  },
+  description: 'This is another test product',
+  category: 'test-category-2',
+} as Product
+
 // Mock FontAwesome icon component
 export const mockFontAwesome = {
   template: '<i :class="starClass" :data-icon="iconType"></i>',
@@ -45,10 +59,21 @@ export const router = createRouter({
 export const $store = createStore({
   state: {
     cart: [],
+    products: {
+      items: [mockProduct, mockProduct2],
+      isLoading: false,
+      error: null,
+    },
   },
   mutations: {
     addToCart(state, product) {
       state.cart.push(product)
+    },
+  },
+  actions: {
+    fetchProducts({ commit }) {
+      // Simulate fetching products
+      commit('setProducts', [mockProduct, mockProduct2])
     },
   },
 })

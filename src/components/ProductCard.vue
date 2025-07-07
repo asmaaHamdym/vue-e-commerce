@@ -21,8 +21,8 @@
 
 <script lang="ts" setup>
 import { useStore } from 'vuex'
-import type { Product } from '../types/types'
 import { useRouter } from 'vue-router'
+import type { Product } from '../types/types'
 
 const store = useStore()
 defineProps({

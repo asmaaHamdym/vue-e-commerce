@@ -19,69 +19,59 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { ref, onMounted, computed } from 'vue'
+import { useStore } from 'vuex'
+
 import type { Product } from '../types/types'
 import ProductCard from '../components/ProductCard.vue'
 import SortDropdown from '../components/SortDropdown.vue'
-import { mapState, mapActions } from 'vuex'
 import ItemAddedNotifaction from '../components/shared/ItemAddedNotifaction.vue'
-export default {
-  name: 'ProductList',
-  components: {
-    ProductCard,
-    SortDropdown,
-    ItemAddedNotifaction,
-  },
-  data() {
-    return {
-      filterBy: '' as string,
-      notificationVisible: false as boolean,
-    }
-  },
-  computed: {
-    ...mapState('products', {
-      items: (state) => state.items,
-      isLoading: (state) => state.loading,
-      error: (state) => state.error,
-    }),
-    sortedProducts(): Product[] {
-      const products = [...this.items]
-      switch (this.filterBy) {
-        case 'price-asc':
-          return products.sort((a: { price: number }, b: { price: number }) => a.price - b.price)
-        case 'price-desc':
-          return products.sort((a: { price: number }, b: { price: number }) => b.price - a.price)
-        case 'rating':
-          return products.sort(
-            (a: { rating: { rate: number } }, b: { rating: { rate: number } }) =>
-              b.rating.rate - a.rating.rate,
-          )
-        case 'category':
-          return products.sort((a: { category: string }, b: { category: string }) =>
-            a.category.localeCompare(b.category),
-          )
 
-        default:
-          return products
-      }
-    },
-  },
-  methods: {
-    ...mapActions('products', { loadProducts: 'fetchProducts' }),
-    setSortOption(selectedSortOption: string) {
-      this.filterBy = selectedSortOption
-    },
-    showNotification(): void {
-      this.notificationVisible = true
-      setTimeout(() => {
-        this.notificationVisible = false
-      }, 1500)
-    },
-  },
-  created() {
-    this.loadProducts()
-  },
+const store = useStore()
+const filterBy = ref('')
+const notificationVisible = ref(false)
+const items = computed(() => (store.getters['products/products'] as Product[]) || [])
+const isLoading = computed(() => store.getters['products/loading'])
+const error = computed(() => store.getters['products/error'])
+
+const showNotification = () => {
+  notificationVisible.value = true
+  setTimeout(() => {
+    notificationVisible.value = false
+  }, 1500)
 }
+const loadProducts = () => {
+  store.dispatch('products/fetchProducts')
+}
+const setSortOption = (option: string) => {
+  filterBy.value = option
+}
+const sortedProducts = computed(() => {
+  const products = [...items.value]
+  switch (filterBy.value) {
+    case 'price-asc':
+      return products.sort((a: { price: number }, b: { price: number }) => a.price - b.price)
+    case 'price-desc':
+      return products.sort((a: { price: number }, b: { price: number }) => b.price - a.price)
+    case 'rating':
+      return products.sort(
+        (a: { rating: { rate: number } }, b: { rating: { rate: number } }) =>
+          b.rating.rate - a.rating.rate,
+      )
+    case 'category':
+      return products.sort((a: { category: string }, b: { category: string }) =>
+        a.category.localeCompare(b.category),
+      )
+
+    default:
+      return products
+  }
+})
+
+onMounted(() => {
+  loadProducts()
+})
 </script>
 
 <style lang="scss" scoped>

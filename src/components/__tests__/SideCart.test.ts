@@ -18,20 +18,6 @@ const mockProduct: Product = {
   category: 'test-category',
 }
 
-// Mock product 2
-const mockProduct2: Product = {
-  id: 2,
-  title: 'Test Product 2',
-  price: 200,
-  image: 'test-image-2.jpg',
-  rating: {
-    rate: 3.5,
-    count: 30,
-  },
-  description: 'This is another test product',
-  category: 'test-category-2',
-}
-
 describe('SideCart', () => {
   let emptyStore: any
   let storeWithProducts: any

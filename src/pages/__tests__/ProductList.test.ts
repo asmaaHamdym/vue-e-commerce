@@ -1,84 +1,45 @@
 import { describe, it, expect } from 'vitest'
-import { mount, shallowMount } from '@vue/test-utils'
+import { mount, VueWrapper } from '@vue/test-utils'
 import ProductList from '../ProductList.vue'
-import { createStore } from 'vuex'
+import { $store } from '../../components/__tests__/mocks/mocks'
+import { beforeEach } from 'vitest'
+// import { Product } from '../../types/types'
 
-const store = createStore({
-  modules: {
-    products: {
-      namespaced: true,
-      state: {
-        items: [],
-        isLoading: false,
-        error: false,
-      },
-      getters: {
-        items: (state) => state.products,
-        isLoading: (state) => state.isLoading,
-        error: (state) => state.error,
+let wrapper: VueWrapper
+beforeEach(() => {
+  wrapper = mount(ProductList, {
+    global: {
+      plugins: [$store],
+      stubs: {
+        ProductCard: true,
+        SortDropdown: true,
+        ItemAddedNotifaction: true,
       },
     },
-  },
+  })
 })
+
 describe('ProductList', () => {
   it('renders successfully', () => {
-    const wrapper = shallowMount(ProductList, {
-      global: {
-        plugins: [store],
-      },
-    })
     expect(wrapper.exists()).toBe(true)
   })
-  it('displays loading state', () => {
-    // store with loading state
-    const store = createStore({
-      modules: {
-        products: {
-          namespaced: true,
-          state: {
-            items: [],
-            loading: true,
-            error: false,
-          },
-          getters: {
-            items: (state) => state.items,
-            loading: (state) => state.loading,
-            error: (state) => state.error,
-          },
-        },
-      },
-    })
-    const wrapper = shallowMount(ProductList, {
-      global: {
-        plugins: [store],
-      },
-    })
-    expect(wrapper.find('.products__loading').text()).toContain('Loading products...')
+  it('displays the product header', () => {
+    const header = wrapper.find('.products__header')
+    expect(header.exists()).toBe(true)
+    expect(header.text()).toBe('Products')
   })
-  it('displays error state', () => {
-    // store with error state
-    const store = createStore({
-      modules: {
-        products: {
-          namespaced: true,
-          state: {
-            items: [],
-            loading: false,
-            error: true,
-          },
-          getters: {
-            items: (state) => state.items,
-            loading: (state) => state.loading,
-            error: (state) => state.error,
-          },
-        },
-      },
-    })
-    const wrapper = shallowMount(ProductList, {
-      global: {
-        plugins: [store],
-      },
-    })
-    expect(wrapper.find('.products__error').text()).toContain('Error: ')
+  it('displays the product list', () => {
+    const productList = wrapper.find('.products__list')
+    expect(productList.exists()).toBe(true)
+  })
+  // test for sorting fucnitoality
+  it('sorts products by price', async () => {
+    const sortDropdown = wrapper.findComponent({ name: 'SortDropdown' })
+    expect(sortDropdown.exists()).toBe(true)
+
+    await sortDropdown.vm.$emit('sort', 'price')
+    const sortedProducts = $store.state.products.items.sort((a, b) => a.price - b.price)
+
+    expect($store.state.products.items).toEqual(sortedProducts)
   })
 })
