@@ -1,42 +1,34 @@
-<script lang="ts">
-import { mapState, mapActions } from 'vuex'
-import type { ProductsState, Product } from '../types/types'
+<script lang="ts" setup>
+import type { Product } from '../types/types'
 import ItemAddedNotification from '../components/shared/ItemAddedNotifaction.vue'
-export default {
-  name: 'ProductDetails',
-  components: {
-    ItemAddedNotification,
-  },
-  data() {
-    return {
-      notificationVisible: false,
-    }
-  },
-  computed: {
-    ...mapState('selectedProduct', {
-      product: (state: ProductsState) => state.selectedProduct,
-      isLoading: (state: ProductsState) => state.loading,
-      error: (state: ProductsState) => state.error,
-    }),
-  },
-  methods: {
-    ...mapActions('selectedProduct', { loadProduct: 'fetchProductById' }),
-    additemToCart(product: Product) {
-      this.$store.dispatch('cart/addToCart', product)
-      this.notificationVisible = true
-      setTimeout(() => {
-        this.notificationVisible = false
-      }, 1500)
-    },
-  },
+import { ref, onMounted, computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
 
-  created() {
-    const productId = this.$route.params.id
-    if (productId) {
-      this.loadProduct(productId)
-    }
-  },
+const notificationVisible = ref(false)
+const store = useStore()
+const route = useRoute()
+const product = computed(() => (store.getters['selectedProduct/selectedProduct'] as Product) || {})
+const isLoading = computed(() => store.getters['selectedProduct/loading'])
+const error = computed(() => store.getters['selectedProduct/error'])
+
+const addItemToCart = (product: Product) => {
+  store.dispatch('cart/addToCart', product)
+  notificationVisible.value = true
+  setTimeout(() => {
+    notificationVisible.value = false
+  }, 1500)
 }
+
+const loadProduct = (productId: string) => {
+  store.dispatch('selectedProduct/fetchProductById', productId)
+}
+onMounted(() => {
+  const productId = route.params.id as string
+  if (productId) {
+    loadProduct(productId)
+  }
+})
 </script>
 
 <template>
@@ -62,7 +54,7 @@ export default {
           </span>
         </p>
         <p class="product__rating">Reviews: {{ product.rating.count }}</p>
-        <button class="product__add-to-cart" @click="additemToCart(product)">Add to Cart</button>
+        <button class="product__add-to-cart" @click="addItemToCart(product)">Add to Cart</button>
       </div>
     </div>
     <ItemAddedNotification v-if="notificationVisible" />

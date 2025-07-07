@@ -1,77 +1,37 @@
-import { it, describe, expect, vi } from 'vitest'
-import { mount, shallowMount } from '@vue/test-utils'
-import { Product } from '../../types/types'
+import { it, describe, expect, beforeEach } from 'vitest'
+import { mount, VueWrapper } from '@vue/test-utils'
 import ProductDetails from '../ProductDetails.vue'
-import { createStore } from 'vuex'
+import { $store, mockProduct, router } from '../../components/__tests__/mocks/mocks'
 
-// Mock Product props
-const mockProduct: Product = {
-  id: 1,
-  category: 'test-category',
-  description: 'This is a test product',
-  title: 'Test Product',
-  price: 100,
-  image: 'test-image.jpg',
-  rating: {
-    rate: 2.5,
-    count: 26,
-  },
-}
-// Mock Vuex store state
-const store = createStore({
-  modules: {
-    selectedProduct: {
-      namespaced: true,
-      state: {
-        selectedProduct: mockProduct as Product,
-        loading: false,
-        error: null,
-      },
-      getters: {
-        selectedProduct: (state) => state.selectedProduct,
-        loading: (state) => state.loading,
-        error: (state) => state.error,
+let wrapper: VueWrapper
+beforeEach(() => {
+  wrapper = mount(ProductDetails, {
+    global: {
+      plugins: [$store, router],
+      stubs: {
+        FontAwesomeIcon: true,
       },
     },
-  },
+  })
 })
 
 describe('ProductDetails', () => {
-  it('renders successfully', () => {
-    const wrapper = shallowMount(ProductDetails, {
-      global: {
-        plugins: [store],
-        mocks: {
-          $route: {
-            params: { id: '1' },
-          },
-        },
-      },
-    })
-    expect(wrapper.exists()).toBe(true)
-    expect(wrapper.text()).toContain('Test Product')
-    expect(wrapper.text()).toContain('This is a test product')
-    expect(wrapper.text()).toContain('100')
-    expect(wrapper.find('img').attributes('src')).toBe('test-image.jpg')
+  // Test for rendering product details
+  it('renders product details correctly', () => {
+    expect(wrapper.find('.product__title').text()).toBe(mockProduct.title)
+    expect(wrapper.find('.product__price').text()).toContain(mockProduct.price.toString())
+    expect(wrapper.find('.product__description').text()).toBe(mockProduct.description)
+    expect(wrapper.find('.product__image').attributes('src')).toBe(mockProduct.image)
   })
 
   // Test for clicking add to cart button adds product to cart
   it('adds product to cart when add to cart button is clicked', async () => {
-    const wrapper = mount(ProductDetails, {
-      components: {
-        ItemAddedNotification: true,
-      },
-      global: {
-        plugins: [store],
-        mocks: {
-          $route: {
-            params: { id: '1' },
-          },
-        },
-      },
-    })
-
     await wrapper.find('.product__add-to-cart').trigger('click')
-    expect(store.state.selectedProduct.selectedProduct).toEqual(mockProduct)
+    expect($store.state.selectedProduct.selectedProduct).toEqual(mockProduct)
+  })
+  // testing it loads product details from store
+  it('loads product details from store', () => {
+    $store.dispatch('fetchProductById', mockProduct.id)
+    expect($store.state.selectedProduct.selectedProduct).toEqual(mockProduct)
   })
 })

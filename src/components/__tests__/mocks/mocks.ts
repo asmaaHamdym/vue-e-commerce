@@ -64,16 +64,29 @@ export const $store = createStore({
       isLoading: false,
       error: null,
     },
+    selectedProduct: {
+      selectedProduct: { ...mockProduct },
+      loading: false,
+      error: null,
+    },
   },
   mutations: {
     addToCart(state, product) {
       state.cart.push(product)
     },
   },
+  getters: {
+    'selectedProduct/selectedProduct': () => mockProduct,
+  },
   actions: {
     fetchProducts({ commit }) {
       // Simulate fetching products
       commit('setProducts', [mockProduct, mockProduct2])
+    },
+    fetchProductById({ commit }, productId) {
+      // Simulate fetching product details
+      const product = mockProduct.id === productId ? mockProduct : mockProduct2
+      commit('setSelectedProduct', product)
     },
   },
 })

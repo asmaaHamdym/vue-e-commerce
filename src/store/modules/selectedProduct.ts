@@ -29,7 +29,11 @@ const actions = {
       const data: Product = await response.json()
       commit('setselectedProduct', data)
     } catch (error) {
-      commit('setError', error.message)
+      let errorMessage = 'An unknown error occurred'
+      if (error instanceof Error) {
+        errorMessage = error.message
+      }
+      commit('setError', errorMessage)
     } finally {
       commit('setLoading', false)
     }
