@@ -21,19 +21,19 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
-import { useStore } from 'vuex'
-
+import { productsStore as useProductStore } from '@/stores/productsStore'
 import type { Product } from '../types/types'
 import ProductCard from '../components/ProductCard.vue'
 import SortDropdown from '../components/SortDropdown.vue'
 import ItemAddedNotifaction from '../components/shared/ItemAddedNotifaction.vue'
 
-const store = useStore()
+const productStore = useProductStore()
 const filterBy = ref('')
 const notificationVisible = ref(false)
-const items = computed(() => (store.getters['products/products'] as Product[]) || [])
-const isLoading = computed(() => store.getters['products/loading'])
-const error = computed(() => store.getters['products/error'])
+
+const items = computed(() => (productStore.items as Product[]) || [])
+const isLoading = computed(() => productStore.loading)
+const error = computed(() => productStore.error)
 
 const showNotification = () => {
   notificationVisible.value = true
@@ -42,7 +42,17 @@ const showNotification = () => {
   }, 1500)
 }
 const loadProducts = () => {
-  store.dispatch('products/fetchProducts')
+  productStore
+    .fetchProducts()
+    .then(() => {
+      if (productStore.error) {
+        console.error('Failed to load products:', productStore.error)
+      }
+    })
+    .catch((err) => {
+      console.error('Error fetching products:', err)
+      productStore.error = 'Failed to load products'
+    })
 }
 const setSortOption = (option: string) => {
   filterBy.value = option
