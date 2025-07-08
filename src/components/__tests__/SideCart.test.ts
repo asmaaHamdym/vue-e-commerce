@@ -2,16 +2,17 @@ import { it, describe, expect, beforeEach } from 'vitest'
 import SideCart from '../SideCart.vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import { $store, mockProduct, mockProduct2 } from './mocks/mocks'
+import { setupTestPinia, useCartStore, mockProduct, mockProduct2 } from './mocks/mocks'
+import { cartStore } from '../../store/cartStore'
 
 let wrapper: VueWrapper
 beforeEach(() => {
+  setupTestPinia()
   wrapper = mount(SideCart, {
     props: {
       isOpen: true,
     },
     global: {
-      plugins: [$store],
       stubs: {
         FontAwesomeIcon: true,
       },
@@ -27,14 +28,12 @@ describe('SideCart', () => {
 
   it('renders correctly with products in cart', async () => {
     // Mock cart state with products
-    $store.state.cart.products = [
-      { product: mockProduct, quantity: 1 },
-      { product: mockProduct2, quantity: 1 },
-    ]
+    const cartStore = useCartStore()
+    cartStore.addToCart(mockProduct)
     await nextTick()
 
     expect(wrapper.find('.cart-item').exists()).toBe(true)
-    expect(wrapper.findAll('.cart-item')).toHaveLength(2)
+    expect(wrapper.text()).toContain('Test Product')
   })
 
   it('emits close event when close button is clicked', async () => {

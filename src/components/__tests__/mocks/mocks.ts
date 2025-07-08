@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { routes } from '../../../router/index'
-import { createStore } from 'vuex'
+import { defineStore } from 'pinia'
+import { createPinia, setActivePinia } from 'pinia'
 import { Product } from '../../../types/types'
 
 // Mock Product props
@@ -55,44 +56,30 @@ export const router = createRouter({
   routes: routes,
 })
 
-// Mock Vuex store
-export const $store = createStore({
-  state: {
-    cart: {
-      products: [],
-      total: 0,
-    },
-    products: {
-      items: [mockProduct, mockProduct2],
-      isLoading: false,
-      error: null,
-    },
-    selectedProduct: {
-      selectedProduct: { ...mockProduct },
-      loading: false,
-      error: null,
-    },
-  },
-  mutations: {
-    addToCart(state, product) {
-      state.cart.push(product)
-    },
-  },
-  getters: {
-    'selectedProduct/selectedProduct': () => mockProduct,
-  },
+// Setup Pinia for testing
+export const setupTestPinia = () => {
+  const pinia = createPinia()
+  setActivePinia(pinia)
+  return pinia
+}
+
+// Cart store
+export const useCartStore = defineStore('cart', {
+  state: () => ({
+    cartItems: [],
+    total: 0,
+  }),
   actions: {
-    fetchProducts({ commit }) {
-      // Simulate fetching products
-      commit('setProducts', [mockProduct, mockProduct2])
+    addToCart(product) {
+      this.cartItems.push(product)
     },
-    fetchProductById({ commit }, productId) {
-      // Simulate fetching product details
-      const product = mockProduct.id === productId ? mockProduct : mockProduct2
-      commit('setSelectedProduct', product)
+    removeFromCart(productId) {
+      this.cartItems = this.cartItems.filter((product) => product.id !== productId)
     },
-    clearCart({ commit }) {
-      commit('clearCart')
+
+    clearCart() {
+      this.cartItems = []
+      this.total = 0
     },
   },
 })
