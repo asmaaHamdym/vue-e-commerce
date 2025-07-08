@@ -2,18 +2,22 @@
 import type { Product } from '../types/types'
 import ItemAddedNotification from '../components/shared/ItemAddedNotifaction.vue'
 import { ref, onMounted, computed } from 'vue'
-import { useStore } from 'vuex'
+import { selectedProductStore as useSelectedProductStore } from '../stores/selectedProductStore'
+import { cartStore as useCartStore } from '@/stores/cartStore'
+
 import { useRoute } from 'vue-router'
 
 const notificationVisible = ref(false)
-const store = useStore()
+const selectedProductStore = useSelectedProductStore()
+const cartStore = useCartStore()
+
 const route = useRoute()
-const product = computed(() => (store.getters['selectedProduct/selectedProduct'] as Product) || {})
-const isLoading = computed(() => store.getters['selectedProduct/loading'])
-const error = computed(() => store.getters['selectedProduct/error'])
+const product = computed(() => (selectedProductStore.selectedProduct as Product) || {})
+const isLoading = computed(() => selectedProductStore.loading)
+const error = computed(() => selectedProductStore.error)
 
 const addItemToCart = (product: Product) => {
-  store.dispatch('cart/addToCart', product)
+  cartStore.addToCart(product)
   notificationVisible.value = true
   setTimeout(() => {
     notificationVisible.value = false
@@ -21,7 +25,12 @@ const addItemToCart = (product: Product) => {
 }
 
 const loadProduct = (productId: string) => {
-  store.dispatch('selectedProduct/fetchProductById', productId)
+  selectedProductStore.fetchProductById(productId).then(() => {
+    console.log(product)
+    if (selectedProductStore.error) {
+      console.error('Failed to load product:', selectedProductStore.error)
+    }
+  })
 }
 onMounted(() => {
   const productId = route.params.id as string
@@ -48,12 +57,12 @@ onMounted(() => {
             <FontAwesomeIcon
               v-for="n in 5"
               :key="n"
-              :icon="n <= Math.round(product.rating.rate || 0) ? 'fas fa-star' : 'far fa-star'"
+              :icon="n <= Math.round(product.rating?.rate || 0) ? 'fas fa-star' : 'far fa-star'"
               class="product__star"
             ></FontAwesomeIcon>
           </span>
         </p>
-        <p class="product__rating">Reviews: {{ product.rating.count }}</p>
+        <p class="product__rating">Reviews: {{ product.rating?.count }}</p>
         <button class="product__add-to-cart" @click="addItemToCart(product)">Add to Cart</button>
       </div>
     </div>
