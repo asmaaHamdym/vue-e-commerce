@@ -44,40 +44,39 @@
   </div>
 </template>
 
-<script lang="ts">
-import { mapState, mapActions } from 'vuex'
-export default {
-  name: 'SideCart',
-  props: {
-    isOpen: {
-      type: Boolean,
-      required: true,
-    },
-  },
+<script lang="ts" setup>
+import { computed, onMounted } from 'vue'
+import { useStore } from 'vuex'
 
-  emits: ['close'],
-  methods: {
-    closeCart(): void {
-      this.$emit('close')
-    },
-    ...mapActions('cart', ['removeFromCart', 'clearCart']),
+const store = useStore()
+const props = defineProps({
+  isOpen: {
+    type: Boolean,
+    required: true,
   },
-  watch: {
-    isOpen(newVal: boolean) {
-      if (newVal) {
-        document.body.style.overflow = 'hidden'
-      } else {
-        document.body.style.overflow = ''
-      }
-    },
-  },
-  computed: {
-    ...mapState('cart', {
-      cartItems: (state) => state.products,
-      totalPrice: (state) => state.total,
-    }),
-  },
+})
+const emit = defineEmits(['close'])
+const closeCart = () => {
+  emit('close')
 }
+
+const removeFromCart = (productId: number) => {
+  store.dispatch('cart/removeFromCart', productId)
+}
+const clearCart = () => {
+  store.dispatch('cart/clearCart')
+}
+
+const cartItems = computed(() => store.state.cart.products || [])
+const totalPrice = computed(() => store.state.cart.total)
+
+onMounted(() => {
+  if (props.isOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+})
 </script>
 
 <style lang="scss" scoped>

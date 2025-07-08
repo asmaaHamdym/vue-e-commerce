@@ -28,7 +28,7 @@ const actions = {
       }
       const data: Product = await response.json()
       commit('setselectedProduct', data)
-    } catch (error) {
+    } catch (error: unknown) {
       let errorMessage = 'An unknown error occurred'
       if (error instanceof Error) {
         errorMessage = error.message

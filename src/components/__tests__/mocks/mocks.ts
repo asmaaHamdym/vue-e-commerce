@@ -58,7 +58,10 @@ export const router = createRouter({
 // Mock Vuex store
 export const $store = createStore({
   state: {
-    cart: [],
+    cart: {
+      products: [],
+      total: 0,
+    },
     products: {
       items: [mockProduct, mockProduct2],
       isLoading: false,
@@ -87,6 +90,9 @@ export const $store = createStore({
       // Simulate fetching product details
       const product = mockProduct.id === productId ? mockProduct : mockProduct2
       commit('setSelectedProduct', product)
+    },
+    clearCart({ commit }) {
+      commit('clearCart')
     },
   },
 })
