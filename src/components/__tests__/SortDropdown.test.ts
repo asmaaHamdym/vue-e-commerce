@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import SortDropdown from '../SortDropdown.vue'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { beforeEach } from 'node:test'
+import { beforeEach } from 'vitest'
 
 let wrapper: VueWrapper
 
 beforeEach(() => {
-  wrapper = mount(SortDropdown, {})
+  wrapper = mount(SortDropdown)
 })
 
 describe('SortDropdown', () => {

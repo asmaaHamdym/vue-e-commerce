@@ -2,8 +2,7 @@ import { it, describe, expect, beforeEach } from 'vitest'
 import SideCart from '../SideCart.vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { nextTick } from 'vue'
-import { setupTestPinia, useCartStore, mockProduct, mockProduct2 } from './mocks/mocks'
-import { cartStore } from '../../store/cartStore'
+import { setupTestPinia, useCartStore, mockProduct } from './mocks/mocks'
 
 let wrapper: VueWrapper
 beforeEach(() => {

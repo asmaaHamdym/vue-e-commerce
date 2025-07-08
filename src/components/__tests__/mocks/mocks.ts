@@ -83,3 +83,19 @@ export const useCartStore = defineStore('cart', {
     },
   },
 })
+// selected product store
+export const useSelectedProductStore = defineStore('selectedProduct', {
+  state: () => ({
+    selectedProduct: mockProduct as Product | null,
+  }),
+  actions: {
+    fetchProductById(productId: number) {
+      // Simulate fetching product by ID
+      if (productId === mockProduct2.id) {
+        this.selectedProduct = mockProduct2
+      } else {
+        this.selectedProduct = null
+      }
+    },
+  },
+})

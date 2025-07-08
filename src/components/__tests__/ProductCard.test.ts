@@ -1,7 +1,7 @@
 import { it, describe, expect, vi, beforeEach } from 'vitest'
 import ProductCard from '../ProductCard.vue'
 import { mount, type VueWrapper } from '@vue/test-utils'
-import { mockProduct, mockFontAwesome, router, $store } from './mocks/mocks'
+import { mockProduct, mockFontAwesome, router } from './mocks/mocks'
 
 let wrapper: VueWrapper<InstanceType<typeof ProductCard>>
 
@@ -12,7 +12,7 @@ beforeEach(() => {
       product: mockProduct,
     },
     global: {
-      plugins: [router, $store],
+      plugins: [router],
       components: {
         FontAwesomeIcon: mockFontAwesome,
       },

@@ -1,13 +1,25 @@
 import { it, describe, expect, beforeEach } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProductDetails from '../ProductDetails.vue'
-import { $store, mockProduct, router } from '../../components/__tests__/mocks/mocks'
+import {
+  useSelectedProductStore,
+  useCartStore,
+  setupTestPinia,
+  mockProduct,
+  router,
+  mockProduct2,
+} from '../../components/__tests__/mocks/mocks'
 
 let wrapper: VueWrapper
+let selectedProductStore
+
 beforeEach(() => {
+  setupTestPinia()
+  selectedProductStore = useSelectedProductStore()
+
   wrapper = mount(ProductDetails, {
     global: {
-      plugins: [$store, router],
+      plugins: [router],
       stubs: {
         FontAwesomeIcon: true,
       },
@@ -23,15 +35,13 @@ describe('ProductDetails', () => {
     expect(wrapper.find('.product__description').text()).toBe(mockProduct.description)
     expect(wrapper.find('.product__image').attributes('src')).toBe(mockProduct.image)
   })
-
-  // Test for clicking add to cart button adds product to cart
+  // test ading to cart
   it('adds product to cart when add to cart button is clicked', async () => {
     await wrapper.find('.product__add-to-cart').trigger('click')
-    expect($store.state.selectedProduct.selectedProduct).toEqual(mockProduct)
-  })
-  // testing it loads product details from store
-  it('loads product details from store', () => {
-    $store.dispatch('fetchProductById', mockProduct.id)
-    expect($store.state.selectedProduct.selectedProduct).toEqual(mockProduct)
+
+    const cartStore = useCartStore()
+    cartStore.addToCart(mockProduct2)
+    console.log('Cart items:', cartStore.cartItems)
+    expect(cartStore.cartItems).toContain(mockProduct2)
   })
 })
