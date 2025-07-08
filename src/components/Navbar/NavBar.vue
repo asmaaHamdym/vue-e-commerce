@@ -5,7 +5,7 @@ import SideCart from '../SideCart.vue'
 import AppLink from '../shared/AppLink.vue'
 import type { MobileMenu } from '../../types/types'
 import { computed, onMounted, reactive } from 'vue'
-import { useStore } from 'vuex'
+import { cartStore as useCartStore } from '../../stores/cartStore'
 
 //useing to refs to destructure reactive state for better readability
 
@@ -33,10 +33,9 @@ const closeCart = () => {
   state.isCartOpen = false
 }
 
-const store = useStore()
-const cartItemCount = computed(() => {
-  return store.getters['cart/cartItemCount'] || 0
-})
+const cartStore = useCartStore()
+// acces cart item count from the cart store getters
+const cartItemCount = computed(() => cartStore.cartItemCount)
 
 onMounted(() => {
   checkScreenWidth()
