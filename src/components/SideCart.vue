@@ -46,9 +46,7 @@
 
 <script lang="ts" setup>
 import { computed, onMounted } from 'vue'
-import { useStore } from 'vuex'
-
-const store = useStore()
+import { cartStore as useCartStore } from '@/stores/cartStore'
 const props = defineProps({
   isOpen: {
     type: Boolean,
@@ -59,16 +57,17 @@ const emit = defineEmits(['close'])
 const closeCart = () => {
   emit('close')
 }
+const cartStore = useCartStore()
 
 const removeFromCart = (productId: number) => {
-  store.dispatch('cart/removeFromCart', productId)
+  cartStore.removeFromCart(productId)
 }
 const clearCart = () => {
-  store.dispatch('cart/clearCart')
+  cartStore.clearCart()
 }
 
-const cartItems = computed(() => store.state.cart.products || [])
-const totalPrice = computed(() => store.state.cart.total)
+const cartItems = computed(() => cartStore.products || [])
+const totalPrice = computed(() => cartStore.total)
 
 onMounted(() => {
   if (props.isOpen) {
