@@ -1,15 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
 import ProductList from '../ProductList.vue'
-import { $store } from '../../components/__tests__/mocks/mocks'
+import { setupTestPinia, useProductListStore } from '../../components/__tests__/mocks/mocks'
 import { beforeEach } from 'vitest'
 // import { Product } from '../../types/types'
 
 let wrapper: VueWrapper
 beforeEach(() => {
+  setupTestPinia()
   wrapper = mount(ProductList, {
     global: {
-      plugins: [$store],
+      plugins: [],
       stubs: {
         ProductCard: true,
         SortDropdown: true,
@@ -28,18 +29,20 @@ describe('ProductList', () => {
     expect(header.exists()).toBe(true)
     expect(header.text()).toBe('Products')
   })
-  it('displays the product list', () => {
-    const productList = wrapper.find('.products__list')
-    expect(productList.exists()).toBe(true)
+  // display the product card component
+  it('displays the product card component', () => {
+    const productCard = wrapper.findComponent({ name: 'ProductCard' })
+    expect(productCard.exists()).toBe(true)
   })
-  // test for sorting fucnitoality
+
   it('sorts products by price', async () => {
+    const productsStore = useProductListStore()
     const sortDropdown = wrapper.findComponent({ name: 'SortDropdown' })
     expect(sortDropdown.exists()).toBe(true)
 
     await sortDropdown.vm.$emit('sort', 'price')
-    const sortedProducts = $store.state.products.items.sort((a, b) => a.price - b.price)
+    const sortedProducts = productsStore.products.sort((a, b) => a.price - b.price)
 
-    expect($store.state.products.items).toEqual(sortedProducts)
+    expect(productsStore.products).toEqual(sortedProducts)
   })
 })

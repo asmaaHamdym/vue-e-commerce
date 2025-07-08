@@ -7,16 +7,17 @@ import {
   setupTestPinia,
   mockProduct,
   router,
-  mockProduct2,
 } from '../../components/__tests__/mocks/mocks'
 
 let wrapper: VueWrapper
+let cartStore
 let selectedProductStore
 
 beforeEach(() => {
   setupTestPinia()
   selectedProductStore = useSelectedProductStore()
-
+  useSelectedProductStore()
+  cartStore = useCartStore()
   wrapper = mount(ProductDetails, {
     global: {
       plugins: [router],
@@ -37,11 +38,10 @@ describe('ProductDetails', () => {
   })
   // test ading to cart
   it('adds product to cart when add to cart button is clicked', async () => {
+    expect(Array.isArray(cartStore.cartItems)).toBe(true)
+
     await wrapper.find('.product__add-to-cart').trigger('click')
 
-    const cartStore = useCartStore()
-    cartStore.addToCart(mockProduct2)
-    console.log('Cart items:', cartStore.cartItems)
-    expect(cartStore.cartItems).toContain(mockProduct2)
+    expect(cartStore.cartItems[0]).toEqual(mockProduct)
   })
 })
