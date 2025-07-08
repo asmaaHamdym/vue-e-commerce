@@ -26,7 +26,6 @@ const addItemToCart = (product: Product) => {
 
 const loadProduct = (productId: string) => {
   selectedProductStore.fetchProductById(productId).then(() => {
-    console.log(product)
     if (selectedProductStore.error) {
       console.error('Failed to load product:', selectedProductStore.error)
     }

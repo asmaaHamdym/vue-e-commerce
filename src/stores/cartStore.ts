@@ -7,9 +7,7 @@ export const cartStore = defineStore('cart', {
     total: 0,
   }),
   getters: {
-    cartItemCount: (state) => {
-      state.products.reduce((count, item) => count + item.quantity, 0)
-    },
+    cartItemCount: (state) => state.products.reduce((count, item) => count + item.quantity, 0),
   },
   actions: {
     addToCart(product: Product) {
@@ -33,4 +31,5 @@ export const cartStore = defineStore('cart', {
       this.total = 0
     },
   },
+  persist: true,
 })

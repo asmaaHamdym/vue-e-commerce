@@ -20,11 +20,13 @@
 </template>
 
 <script lang="ts" setup>
-import { useStore } from 'vuex'
+import { cartStore as useCartStore } from '@/stores/cartStore'
 import { useRouter } from 'vue-router'
 import type { Product } from '../types/types'
 
-const store = useStore()
+const cartStore = useCartStore()
+const router = useRouter()
+
 defineProps({
   product: {
     type: Object as () => Product,
@@ -35,9 +37,8 @@ const emit = defineEmits(['product-added'])
 
 const addToCart = (product: Product) => {
   emit('product-added', product)
-  store.dispatch('cart/addToCart', product)
+  cartStore.addToCart(product)
 }
-const router = useRouter()
 
 const goToProductDetail = (productId: number) => {
   router.push({ name: 'product', params: { id: productId } })

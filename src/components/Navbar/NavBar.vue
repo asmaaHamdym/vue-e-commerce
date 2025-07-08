@@ -38,6 +38,7 @@ const cartStore = useCartStore()
 const cartItemCount = computed(() => cartStore.cartItemCount)
 
 onMounted(() => {
+  console.log(cartItemCount)
   checkScreenWidth()
   window.addEventListener('resize', checkScreenWidth)
 })

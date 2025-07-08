@@ -1,7 +1,7 @@
 import NavBar from '../Navbar/NavBar.vue'
 import { it, describe, expect } from 'vitest'
 import { mount, VueWrapper } from '@vue/test-utils'
-import { router, useCartStore, setupTestPinia } from './mocks/mocks'
+import { router, setupTestPinia } from './mocks/mocks'
 import { beforeEach } from 'vitest'
 
 let wrapper: VueWrapper
