@@ -102,14 +102,15 @@ export const useSelectedProductStore = defineStore('selectedProduct', {
 // Mock product list store
 export const useProductListStore = defineStore('productList', {
   state: () => ({
-    products: [mockProduct, mockProduct2] as Product[],
+    items: [mockProduct, mockProduct2] as Product[],
+    sortedProducts: [] as Product[],
     loading: false,
-    error: null as string | null,
+    error: null,
   }),
   actions: {
     fetchProducts() {
       // Simulate fetching products
-      this.products = [mockProduct, mockProduct2]
+      this.items = [mockProduct, mockProduct2]
     },
   },
 })

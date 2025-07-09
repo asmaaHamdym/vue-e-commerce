@@ -1,12 +1,13 @@
 import { it, describe, expect, vi, beforeEach } from 'vitest'
 import ProductCard from '../ProductCard.vue'
 import { mount, type VueWrapper } from '@vue/test-utils'
-import { mockProduct, mockFontAwesome, router } from './mocks/mocks'
+import { mockProduct, mockFontAwesome, router, setupTestPinia } from './mocks/mocks'
 
 let wrapper: VueWrapper<InstanceType<typeof ProductCard>>
 
 // passing the mock product, router and store to the component before each test
 beforeEach(() => {
+  setupTestPinia()
   wrapper = mount(ProductCard, {
     props: {
       product: mockProduct,
