@@ -32,10 +32,10 @@ describe('Navbar', () => {
   })
 
   it('starts with mobile menu closed', () => {
-    expect(wrapper.vm.state.mobile).toBe(false)
+    expect(wrapper.vm.mobileNav).toBe(false)
   })
 
   it('starts with cart closed', () => {
-    expect(wrapper.vm.state.isCartOpen).toBe(false)
+    expect(wrapper.vm.isCartOpen).toBe(false)
   })
 })

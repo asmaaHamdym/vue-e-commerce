@@ -2,10 +2,12 @@ import { describe, it, expect } from 'vitest'
 import SortDropdown from '../SortDropdown.vue'
 import { mount, VueWrapper } from '@vue/test-utils'
 import { beforeEach } from 'vitest'
+import { setupTestPinia } from './mocks/mocks'
 
 let wrapper: VueWrapper
 
 beforeEach(() => {
+  setupTestPinia()
   wrapper = mount(SortDropdown)
 })
 
