@@ -1,7 +1,11 @@
 <template>
   <div class="dropdown">
     <div class="dropdown__controls">
-      <select v-model="selectedSortOption" class="dropdown__select" @change="emitSelectedOption">
+      <select
+        v-model="selectedSortOption"
+        class="dropdown__select"
+        @change="productStore.sortProducts(selectedSortOption)"
+      >
         <option
           v-for="option in options"
           :value="option.value"
@@ -16,8 +20,11 @@
 </template>
 
 <script lang="ts" setup>
+import { productsStore as useProductStore } from '@/stores/productsStore'
 import { ref } from 'vue'
 const selectedSortOption = ref('')
+const productStore = useProductStore()
+
 const options = ref([
   { value: '', label: 'Default' },
   { value: 'rating', label: 'Highest Rating' },
@@ -25,10 +32,6 @@ const options = ref([
   { value: 'price-desc', label: 'Price: High to Low' },
   { value: 'category', label: 'Category' },
 ])
-const emit = defineEmits(['sort'])
-const emitSelectedOption = () => {
-  emit('sort', selectedSortOption.value)
-}
 </script>
 
 <style lang="scss" scoped>

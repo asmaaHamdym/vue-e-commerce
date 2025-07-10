@@ -2,14 +2,14 @@
   <div class="products">
     <div class="products__header">
       <h1 class="products__title">Products</h1>
-      <SortDropdown @sort="setSortOption" />
+      <SortDropdown />
     </div>
     <div v-if="isLoading" class="products__loading">Loading products...</div>
     <div v-if="error" class="products__error">Error: {{ error }}</div>
 
     <ul v-if="!isLoading && !error" class="products__list">
       <ProductCard
-        v-for="product in sortedProducts"
+        v-for="product in items"
         :key="product.id"
         :product="product"
         @product-added="showNotification"
@@ -28,7 +28,6 @@ import SortDropdown from '../components/SortDropdown.vue'
 import ItemAddedNotifaction from '../components/shared/ItemAddedNotifaction.vue'
 
 const productStore = useProductStore()
-const filterBy = ref('')
 const notificationVisible = ref(false)
 
 const items = computed(() => (productStore.items as Product[]) || [])
@@ -54,30 +53,6 @@ const loadProducts = () => {
       productStore.error = 'Failed to load products'
     })
 }
-const setSortOption = (option: string) => {
-  filterBy.value = option
-}
-const sortedProducts = computed(() => {
-  const products = [...items.value]
-  switch (filterBy.value) {
-    case 'price-asc':
-      return products.sort((a: { price: number }, b: { price: number }) => a.price - b.price)
-    case 'price-desc':
-      return products.sort((a: { price: number }, b: { price: number }) => b.price - a.price)
-    case 'rating':
-      return products.sort(
-        (a: { rating: { rate: number } }, b: { rating: { rate: number } }) =>
-          b.rating.rate - a.rating.rate,
-      )
-    case 'category':
-      return products.sort((a: { category: string }, b: { category: string }) =>
-        a.category.localeCompare(b.category),
-      )
-
-    default:
-      return products
-  }
-})
 
 onMounted(() => {
   loadProducts()
