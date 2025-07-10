@@ -18,13 +18,7 @@ export interface ProductsState {
   loading: boolean
   error: string | null
 }
-// interface for Hamburger menu
-export interface MobileMenu {
-  mobile: boolean
-  mobileNav: boolean
-  windowWidth: number
-  isCartOpen: boolean
-}
+
 //  interface for cart
 export interface CartItem {
   product: Product

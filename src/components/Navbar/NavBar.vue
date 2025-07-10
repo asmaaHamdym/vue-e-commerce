@@ -3,34 +3,31 @@ import NavbarLinks from './NavbarLinks.vue'
 import HamburgerMenu from './HamburgerMenu.vue'
 import SideCart from '../SideCart.vue'
 import AppLink from '../shared/AppLink.vue'
-import type { MobileMenu } from '../../types/types'
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { cartStore as useCartStore } from '../../stores/cartStore'
 
 //useing to refs to destructure reactive state for better readability
 
-const state = reactive<MobileMenu>({
-  mobile: false,
-  mobileNav: false,
-  windowWidth: 0,
-  isCartOpen: false,
-})
+const mobile = ref(false)
+const mobileNav = ref(false)
+const windowWidth = ref(0)
+const isCartOpen = ref(false)
 
 const checkScreenWidth = () => {
-  state.windowWidth = window.innerWidth
-  state.mobile = state.windowWidth < 750
-  if (state.mobileNav && !state.mobile) {
-    state.mobileNav = false
+  windowWidth.value = window.innerWidth
+  mobile.value = windowWidth.value < 750
+  if (mobileNav.value && !mobile.value) {
+    mobileNav.value = false
   }
 }
 const toggleMobileNav = () => {
-  state.mobileNav = !state.mobileNav
+  mobileNav.value = !mobileNav.value
 }
 const openCart = () => {
-  state.isCartOpen = true
+  isCartOpen.value = true
 }
 const closeCart = () => {
-  state.isCartOpen = false
+  isCartOpen.value = false
 }
 
 const cartStore = useCartStore()
@@ -50,8 +47,8 @@ onMounted(() => {
         <FontAwesomeIcon
           :icon="['fas', 'bars']"
           @click="toggleMobileNav"
-          v-if="state.mobile"
-          :class="{ 'nav__icon--active': state.mobileNav }"
+          v-if="mobile"
+          :class="{ 'nav__icon--active': mobileNav }"
         />
       </div>
       <div class="nav__logo">
@@ -63,7 +60,7 @@ onMounted(() => {
           />
         </AppLink>
       </div>
-      <NavbarLinks v-if="!state.mobile" />
+      <NavbarLinks v-if="!mobile" />
       <div class="nav__actions">
         <AppLink :to="{ name: '' }" class="nav__action-link">Sign in</AppLink>
         <AppLink :to="{ name: '' }" class="nav__action-link nav__cart-container">
@@ -78,13 +75,9 @@ onMounted(() => {
           </span>
         </AppLink>
       </div>
-      <SideCart :is-open="state.isCartOpen" @close="closeCart" />
+      <SideCart :is-open="isCartOpen" @close="closeCart" />
     </nav>
-    <HamburgerMenu
-      v-if="state.mobile"
-      :mobileNav="state.mobileNav"
-      @close-mobile-nav="toggleMobileNav"
-    />
+    <HamburgerMenu v-if="mobile" :mobileNav="mobileNav" @close-mobile-nav="toggleMobileNav" />
   </header>
 </template>
 <style lang="scss" scoped>
