@@ -20,7 +20,8 @@ export const selectedProductStore = defineStore('selectedProduct', {
         const data: Product = await response.json()
         this.selectedProduct = data
       } catch (error) {
-        this.error = error instanceof Error ? error.message : 'An unknown error occurred'
+        this.error =
+          'Error fetching product: ' + (error instanceof Error ? error.message : 'Unknown error')
       } finally {
         this.loading = false
       }

@@ -27,13 +27,13 @@ const routes = [
         name: 'contactus',
         component: ContactUs,
       },
-      // add not found route
-      {
-        path: '/:pathMatch(.*)*',
-        name: 'not-found',
-        component: NotFound,
-      },
     ],
+  },
+  // add not found route
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'not-found',
+    component: NotFound,
   },
 ]
 const router = createRouter({
